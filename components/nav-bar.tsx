@@ -92,6 +92,7 @@ export default function NavBar() {
                     {item.children.map((child) => (
                       <DropdownMenuItem key={child.title} asChild>
                         <Link
+                          key={child.title}
                           href={child.href}
                           className="w-full cursor-pointer"
                         >
@@ -106,16 +107,18 @@ export default function NavBar() {
 
             // Regular nav item without dropdown
             return (
-              <Link
-                key={item.title}
-                href={item.href}
-                className={cn(
-                  "text-base font-medium transition-colors hover:text-primary",
-                  item.disabled && "cursor-not-allowed opacity-80"
-                )}
-              >
-                {item.title}
-              </Link>
+              <>
+                <Link
+                  key={item.title}
+                  href={item.href}
+                  className={cn(
+                    "text-base font-medium transition-colors hover:text-primary",
+                    item.disabled && "cursor-not-allowed opacity-80"
+                  )}
+                >
+                  {item.title}
+                </Link>
+              </>
             );
           })}
         </nav>
@@ -123,17 +126,19 @@ export default function NavBar() {
         <div className="flex items-center gap-4">
           <div className="hidden md:flex md:gap-2">
             {user ? (
-              <Button
-                variant="ghost"
-                size="sm"
-                className="px-4"
-                onClick={() => signOut()}
-              >
-                Logout
-              </Button>
+              <>
+                <Link href="/dashboard" key={user.id}>
+                  <Button variant="secondary" size="sm" className="px-4">
+                    Dashboard
+                  </Button>
+                </Link>
+                <Button size="sm" className="px-4" onClick={() => signOut()}>
+                  Logout
+                </Button>
+              </>
             ) : (
               <Link href="/login">
-                <Button variant="ghost" size="sm" className="px-4">
+                <Button size="sm" className="px-4">
                   Login
                 </Button>
               </Link>
