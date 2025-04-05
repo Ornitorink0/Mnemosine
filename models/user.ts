@@ -1,5 +1,12 @@
 import mongoose, { Document, Schema, Model } from "mongoose";
 
+const exerciseSchema = new Schema({
+  id: { type: String, required: true },
+  description: String,
+  timeSpent: { type: Number, default: 0 }, // Tempo impiegato per l'esercizio (in secondi, per esempio)
+  usererrors: { type: Number, default: 0 }, // Numero di errori commessi
+}, { _id: false });
+
 interface IUser extends Document {
   id: string;
   username: string;
