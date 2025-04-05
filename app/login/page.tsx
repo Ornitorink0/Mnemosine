@@ -55,7 +55,12 @@ export default function LoginForm() {
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="username">Username <span className="text-red-500">{error && "Nome utente o password errati"}</span></Label>
+              <Label htmlFor="username">
+                Username{" "}
+                <span className="text-red-500">
+                  {error && "Nome utente o password errati"}
+                </span>
+              </Label>
               <div className="relative">
                 <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                 <Input
