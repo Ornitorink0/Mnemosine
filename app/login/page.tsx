@@ -1,8 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import { User, Lock } from "lucide-react";
 
@@ -25,10 +25,15 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
+  const { data: session } = useSession();
+
+  if (session) {
+    redirect("/dashboard");
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Login attempt with:", { username, password });
-    // AUTH LOGIC
     const res = await signIn("credentials", {
       username,
       password,
@@ -65,7 +70,7 @@ export default function LoginForm() {
                 <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                 <Input
                   id="username"
-                  type="username"
+                  type="text"
                   placeholder="example"
                   className={cn(
                     "pl-10",
@@ -117,3 +122,13 @@ export default function LoginForm() {
     </div>
   );
 }
+
+// // @ts-ignore
+// export async function isLoggedIn() {
+//   const session = await getServerSession();
+
+//   if (session) {
+//     console.log("Session found:", session);
+//     window.location.href = "/dashboard";
+//   }
+// }

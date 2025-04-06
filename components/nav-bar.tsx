@@ -12,7 +12,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { ModeToggle } from "./ui/self/mode-toggle";
 import { signOut, useSession } from "next-auth/react";
 
@@ -107,18 +112,16 @@ export default function NavBar() {
 
             // Regular nav item without dropdown
             return (
-              <>
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  className={cn(
-                    "text-base font-medium transition-colors hover:text-primary",
-                    item.disabled && "cursor-not-allowed opacity-80"
-                  )}
-                >
-                  {item.title}
-                </Link>
-              </>
+              <Link
+                key={item.title}
+                href={item.href}
+                className={cn(
+                  "text-base font-medium transition-colors hover:text-primary",
+                  item.disabled && "cursor-not-allowed opacity-80"
+                )}
+              >
+                {item.title}
+              </Link>
             );
           })}
         </nav>
@@ -147,6 +150,8 @@ export default function NavBar() {
           <ModeToggle />
           {/* Mobile navigation */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            {/** SheetTitle Evita un errore di compilazione */}
+            <SheetTitle className="hidden" />
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
                 <Menu className="h-5 w-5" />

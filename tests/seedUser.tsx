@@ -13,8 +13,8 @@ console.log("URI LETTA:", process.env.MONGODB_URI)
 async function seed() {
   await connectToDB();
 
-  const username = "testuser";
-  const rawPassword = "supersecret";
+  const username = "test1";
+  const rawPassword = "test";
   const hashedPassword = await bcrypt.hash(rawPassword, 10);
 
   const exists = await User.findOne({ username });

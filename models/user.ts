@@ -1,28 +1,57 @@
 import mongoose, { Document, Schema, Model } from "mongoose";
 
-const exerciseSchema = new Schema({
-  id: { type: String, required: true },
-  description: String,
-  timeSpent: { type: Number, default: 0 }, // Tempo impiegato per l'esercizio (in secondi, per esempio)
-  usererrors: { type: Number, default: 0 }, // Numero di errori commessi
-}, { _id: false });
+interface IExercise extends Document {
+  id: string;
+  description: string;
+  timeSpent: number;
+  usererrors: number;
+}
+
+interface ISession extends Document {
+  exercises: IExercise[];
+  date: Date;
+  duration: number;
+}
 
 interface IUser extends Document {
   id: string;
   username: string;
   password: string;
   role: string;
-  // createdAt: Date;
-  // updatedAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  sessions: ISession[];
+  notes: string[];
 }
 
+const exerciseSchema = new Schema<IExercise>(
+  {
+    id: { type: String, required: true },
+    description: String,
+    timeSpent: { type: Number, default: 0 },
+    usererrors: { type: Number, default: 0 },
+  },
+  { _id: false }
+);
+
+const sessionSchema = new Schema<ISession>(
+  {
+    exercises: [exerciseSchema],
+    date: { type: Date, default: Date.now },
+    duration: { type: Number, required: true },
+  },
+  { _id: false }
+);
+
 const UserSchema = new Schema<IUser>({
-  // id: { type: String, required: true },
+  id: { type: String, required: false },
   username: { type: String, required: true },
   password: { type: String, required: true },
-  // role: { type: String, required: true },
-  // createdAt: { type: Date, default: Date.now },
-  // updatedAt: { type: Date, default: Date.now },
+  role: { type: String, required: false },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+  sessions: [sessionSchema],
+  notes: [String],
 });
 
-export default mongoose.models.User || mongoose.model("User", UserSchema)
+export default mongoose.models.User || mongoose.model("User", UserSchema);
