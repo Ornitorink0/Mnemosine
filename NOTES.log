@@ -1,3 +1,5 @@
 2025-04-05 - Ornitorink0: installato framer-motion per un uso futuro
 2025-04-05 - Ornitorink0: aggiunto halftone-waves.tsx per un uso futuro
 2025-04-05 - Ornitorink0: TODO: logica della dashboard non ancora implementata
+2025-04-05 - Ornitorink0: NEED TO FIX: fixare la loading page (Uncaught Error: Rendered more hooks than during the previous render)
+2025-05-08 - Ornitorink0: NEED TO FIX: Error: Cannot read properties of undefined (reading 'User') --> export default mongoose.models.User || mongoose.model("User", UserSchema);
