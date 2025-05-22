@@ -4,9 +4,9 @@ export const connectToDB = async () => {
   if (mongoose.connection.readyState >= 1) return;
   try {
     await mongoose.connect(process.env.MONGODB_URI!);
-    console.log("✅ MongoDB connesso");
+    console.log("MnemosineBE: MongoDB connesso");
   } catch (err) {
-    console.error("❌ Connessione fallita:", err);
+    console.error("MnemosineBE: Connessione fallita:", err);
   }
 };
 

@@ -1,9 +1,9 @@
 "use client";
 
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User, Lock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -24,15 +24,11 @@ export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-
-  const { data: session } = useSession();
-
-  if (session) {
-    redirect("/dashboard");
-  }
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     console.log("Login attempt with:", { username, password });
     const res = await signIn("credentials", {
       username,
@@ -44,8 +40,17 @@ export default function LoginForm() {
       router.push("/dashboard");
     } else {
       setError(true);
+      setIsSubmitting(false);
     }
   };
+
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      router.push("/dashboard");
+    }
+  }, [session]);
 
   return (
     <div className="flex h-[calc(100dvh-4em)] items-center justify-center">
@@ -113,8 +118,12 @@ export default function LoginForm() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full mt-4">
-              Sign in
+            <Button
+              type="submit"
+              className="w-full mt-4"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Caricamento..." : "Accedi"}
             </Button>
           </CardFooter>
         </form>
@@ -122,13 +131,3 @@ export default function LoginForm() {
     </div>
   );
 }
-
-// // @ts-ignore
-// export async function isLoggedIn() {
-//   const session = await getServerSession();
-
-//   if (session) {
-//     console.log("Session found:", session);
-//     window.location.href = "/dashboard";
-//   }
-// }

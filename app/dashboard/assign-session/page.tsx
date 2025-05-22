@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Plus, Trash } from "lucide-react";
+import { Calendar, Check, Plus, Trash } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -36,6 +36,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import availableExercises from "@/lib/availableExercises";
 
 // MANCA IMPLEMENTAZIONE API
 
@@ -47,61 +50,16 @@ const patients = [
   { id: 5, name: "Matteo Russo" },
 ];
 
-const availableExercises = [
-  {
-    id: 105,
-    code: "105",
-    name: "Trova i sinonimi",
-    description: "Identifica parole con significato simile",
-  },
-  {
-    id: 106,
-    code: "106",
-    name: "Trova i contrari",
-    description: "Identifica parole con significato opposto",
-  },
-  {
-    id: 201,
-    code: "201",
-    name: "Sequenze logiche",
-    description: "Completa la sequenza seguendo il pattern",
-  },
-  {
-    id: 304,
-    code: "304",
-    name: "Memoria visiva",
-    description: "Ricorda e riproduci gli elementi mostrati",
-  },
-  {
-    id: 401,
-    code: "401",
-    name: "Completa il puzzle",
-    description: "Ricostruisci l'immagine dai frammenti",
-  },
-  {
-    id: 402,
-    code: "402",
-    name: "Labirinto",
-    description: "Trova il percorso dall'inizio alla fine",
-  },
-  {
-    id: 503,
-    code: "503",
-    name: "Calcolo mentale",
-    description: "Risolvi operazioni matematiche senza carta",
-  },
-  {
-    id: 601,
-    code: "601",
-    name: "Comprensione del testo",
-    description: "Rispondi a domande sul brano letto",
-  },
-];
-
 export default function AssignExercisesPage() {
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [patientPopoverOpen, setPatientPopoverOpen] = useState(false);
   const [selectedExercises, setSelectedExercises] = useState([]);
+
+  const { data: session, status } = useSession();
+  console.log("DashboardPage", { session, status });
+  if (!session) {
+    redirect("/login");
+  }
 
   const handleSelectExercise = (exercise) => {
     if (selectedExercises.some((ex) => ex.id === exercise.id)) {
@@ -149,8 +107,13 @@ export default function AssignExercisesPage() {
   };
 
   return (
-    <div className="container mx-auto py-6">
-      <h1 className="text-3xl font-bold mb-6">Assegnazione Esercizi</h1>
+    <div className="container mx-auto py-6 px-4 md:py-10 md:px-6">
+      <div className="flex items-center gap-3 mb-5">
+        <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10">
+          <Calendar className="h-6 w-6 text-primary" />
+        </div>
+        <h1 className="text-2xl md:text-3xl font-bold">Assegna Sessione</h1>
+      </div>
 
       <Card>
         <CardHeader>
@@ -236,7 +199,11 @@ export default function AssignExercisesPage() {
                 </TableHeader>
                 <TableBody>
                   {availableExercises.map((exercise) => (
-                    <TableRow key={exercise.id}>
+                    <TableRow
+                      key={exercise.id}
+                      onClick={() => handleSelectExercise(exercise)}
+                      className="cursor-pointer"
+                    >
                       <TableCell>
                         <Checkbox
                           checked={selectedExercises.some(

@@ -23,10 +23,12 @@ interface EditUserFormProps {
 }
 
 export function EditUserForm({ user, onSuccess }: EditUserFormProps) {
+  console.log("EditUserForm user:", user);
+
   const [formData, setFormData] = useState({
     username: user.username,
     role: user.role,
-    newNote: "",
+    notes: user.notes || "",
   });
 
   const handleChange = (
@@ -36,19 +38,23 @@ export function EditUserForm({ user, onSuccess }: EditUserFormProps) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleRoleChange = (value: string) => {
+  const handleRoleChange = (value: "super" | "admin" | "patient") => {
     setFormData((prev) => ({ ...prev, role: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const updatedUser = {
-      ...user,
+    const updatedUser: User = {
+      id: user.id,
+      _id: user._id,
       username: formData.username,
+      password: user.password,
       role: formData.role,
+      createdAt: user.createdAt,
       updatedAt: new Date(),
-      notes: formData.newNote ? [...user.notes, formData.newNote] : user.notes,
+      sessionIds: user.sessionIds,
+      notes: formData.notes,
     };
 
     updateUser(updatedUser);
@@ -75,21 +81,21 @@ export function EditUserForm({ user, onSuccess }: EditUserFormProps) {
             <SelectValue placeholder="Select role" />
           </SelectTrigger>
           <SelectContent>
+            <SelectItem value="super">Super</SelectItem>
             <SelectItem value="admin">Admin</SelectItem>
-            <SelectItem value="user">User</SelectItem>
-            <SelectItem value="guest">Guest</SelectItem>
+            <SelectItem value="patient">Patient</SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div className="space-y-2">
-        <Label htmlFor="newNote">Add Note (optional)</Label>
+        <Label htmlFor="notes">Note</Label>
         <Textarea
-          id="newNote"
-          name="newNote"
-          value={formData.newNote}
+          id="notes"
+          name="notes"
+          value={formData.notes}
           onChange={handleChange}
-          placeholder="Add a new note about this user..."
-          className="min-h-[100px] focus-visible:ring-primary"
+          placeholder="Edit the note about this user..."
+          className="min-h-[100px] focus-visible:ring-primary max-h-[30dvh]"
         />
       </div>
       <div className="flex justify-end gap-2 pt-2">
@@ -101,3 +107,4 @@ export function EditUserForm({ user, onSuccess }: EditUserFormProps) {
     </form>
   );
 }
+

@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/sheet";
 import { ModeToggle } from "./ui/self/mode-toggle";
 import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 interface NavItem {
   title: string;
@@ -66,11 +67,11 @@ export default function NavBar() {
   const { user, signOut } = useUser();
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur">
+    <header className="sticky top-0 z-40 w-full bg-background/90 backdrop-blur">
       <div className="container flex mx-auto h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center space-x-4">
-            <span className="inline-block h-8 w-8 rounded-full bg-secondary"></span>
+            <Image src={"/mnemosine-logo.svg"} alt="Logo" width={32} height={32} />
             <span className="hidden text-xl font-bold sm:inline-block">
               Mnemosine
             </span>

@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useState } from "react";
 import {
   Dialog,
@@ -28,34 +27,47 @@ export function AddUserForm() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    role: "user",
+    role: "",
   });
 
+  const roles = [
+    { value: "super", label: "Super" },
+    { value: "admin", label: "Admin" },
+    { value: "patient", label: "Patient" },
+  ];
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
-  const handleRoleChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, role: value }));
+  const handleRoleChange = (value: "super" | "admin" | "patient") => {
+    setFormData((prev) => ({
+      ...prev,
+      role: value,
+    }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    addUser({
-      ...formData,
-      id: crypto.randomUUID(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      sessions: [],
-      notes: [],
-    });
-    setFormData({
-      username: "",
-      password: "",
-      role: "user",
-    });
-    setIsOpen(false);
+    try {
+      await addUser(
+        formData.username,
+        formData.password,
+        formData.role === "super"
+          ? "super"
+          : formData.role === "admin"
+          ? "admin"
+          : "patient"
+      );
+      setIsOpen(false);
+      setFormData({ username: "", password: "", role: "" }); // reset
+    } catch (error) {
+      console.error("Errore nell'aggiunta utente:", error);
+      // eventualmente mostra un toast qui
+    }
   };
 
   return (
@@ -63,12 +75,12 @@ export function AddUserForm() {
       <DialogTrigger asChild>
         <Button className="gap-2">
           <Plus className="h-4 w-4" />
-          Add User
+          Aggiungi utente
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Add New User</DialogTitle>
+          <DialogTitle>Aggiungi un nuovo utente</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 py-3">
           <div className="space-y-2">
@@ -78,7 +90,6 @@ export function AddUserForm() {
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="focus-visible:ring-primary"
               required
             />
           </div>
@@ -90,20 +101,23 @@ export function AddUserForm() {
               type="password"
               value={formData.password}
               onChange={handleChange}
-              className="focus-visible:ring-primary"
               required
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="role">Role</Label>
-            <Select value={formData.role} onValueChange={handleRoleChange}>
-              <SelectTrigger id="role" className="focus-visible:ring-primary">
+            <Label htmlFor="role">Ruolo</Label>
+            <Select
+              value={formData.role}
+              onValueChange={handleRoleChange}
+              required
+            >
+              <SelectTrigger id="role">
                 <SelectValue placeholder="Select role" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="admin">Admin</SelectItem>
-                <SelectItem value="user">User</SelectItem>
-                <SelectItem value="guest">Guest</SelectItem>
+                <SelectItem value="super">Super utente</SelectItem>
+                <SelectItem value="admin">Amministratore</SelectItem>
+                <SelectItem value="patient">Paziente</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -113,9 +127,9 @@ export function AddUserForm() {
               variant="outline"
               onClick={() => setIsOpen(false)}
             >
-              Cancel
+              Cancella
             </Button>
-            <Button type="submit">Add User</Button>
+            <Button type="submit">Aggiungi</Button>
           </div>
         </form>
       </DialogContent>

@@ -1,8 +1,17 @@
+"use client";
+
 import { UserTable } from "@/components/user-table";
 import { AddUserForm } from "@/components/add-user-form";
 import { Users } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export default function Page() {
+  const { data: session, status } = useSession();
+  console.log("DashboardPage", { session, status });
+  if (!session) {
+    redirect("/login");
+  }
   return (
     <div className="container mx-auto py-6 px-4 md:py-10 md:px-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
@@ -10,7 +19,7 @@ export default function Page() {
           <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10">
             <Users className="h-6 w-6 text-primary" />
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold">User Management</h1>
+          <h1 className="text-2xl md:text-3xl font-bold">Gestione Utenti</h1>
         </div>
         <AddUserForm />
       </div>

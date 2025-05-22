@@ -1,6 +1,4 @@
-"use client";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -13,7 +11,12 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import {
+  ArrowUpDown,
+  ChevronDown,
+  MoreHorizontal,
+  RefreshCw,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -39,43 +42,33 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { UserDetail } from "./user-detail";
 import { EditUserForm } from "./edit-user-form";
-import { mockUsers, deleteUser } from "@/lib/data";
+import { deleteUser } from "@/lib/data";
 
 export type User = {
   id: string;
+  _id: string;
   username: string;
-  role: string;
+  password: string;
+  role: "super" | "admin" | "patient";
   createdAt: Date;
   updatedAt: Date;
-  sessions: {
-    exercises: {
-      id: string;
-      description: string;
-      timeSpent: number;
-      usererrors: number;
-    }[];
-    date: Date;
-    duration: number;
-  }[];
-  notes: string[];
+  sessionIds: number[];
+  notes: string;
 };
 
 export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "username",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Username
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Username
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => <div>{row.getValue("username")}</div>,
   },
   {
@@ -85,28 +78,26 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Created At
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Created At
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => {
-      const date = row.getValue("createdAt") as Date;
+      const date = new Date(row.getValue("createdAt"));
       return <div>{date.toLocaleDateString()}</div>;
     },
   },
   {
-    accessorKey: "sessions",
-    header: "Sessions",
+    accessorKey: "sessionIds",
+    header: "Session Ids",
     cell: ({ row }) => {
-      const sessions = row.getValue("sessions") as any[];
-      return <div>{sessions.length}</div>;
+      const sessionIds = row.getValue("sessionIds") as number[];
+      return <div>{sessionIds}</div>;
     },
   },
   {
@@ -116,10 +107,12 @@ export const columns: ColumnDef<User>[] = [
       const [isOpen, setIsOpen] = useState(false);
       const [isEditOpen, setIsEditOpen] = useState(false);
       const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+      const [data, setData] = useState<User[]>([]);
 
       const handleDelete = () => {
-        deleteUser(user.id);
+        deleteUser(user._id);
         setIsDeleteConfirmOpen(false);
+        setData((prevData) => prevData.filter((u) => u._id !== user._id));
       };
 
       return (
@@ -128,26 +121,51 @@ export const columns: ColumnDef<User>[] = [
             <DialogTrigger asChild>
               <Button variant="ghost" size="icon" className="h-8 w-8">
                 <MoreHorizontal className="h-4 w-4" />
-                <span className="sr-only">View</span>
+                <span className="sr-only">Vista</span>
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-3xl">
               <DialogHeader>
-                <DialogTitle>User Details</DialogTitle>
+                <DialogTitle>Dettagli utente</DialogTitle>
               </DialogHeader>
-              <UserDetail user={user} />
+              <div className="py-4">
+                <p>
+                  <strong>Username:</strong> {user.username}
+                </p>
+                <p>
+                  <strong>Role:</strong> {user.role}
+                </p>
+                <p>
+                  <strong>Created At:</strong>{" "}
+                  {new Date(user.createdAt).toLocaleDateString()}
+                </p>
+                <p>
+                  <strong>Updated At:</strong>{" "}
+                  {new Date(user.updatedAt).toLocaleDateString()}
+                </p>
+                <p>
+                  <strong>Session Ids:</strong>{" "}
+                  {user.sessionIds
+                    ? user.sessionIds
+                    : "Nessuna sessione assegnata"}
+                </p>
+                <p>
+                  <strong>Notes:</strong>{" "}
+                  {user.notes ? user.notes : "Nessuna nota inserita"}
+                </p>
+              </div>
             </DialogContent>
           </Dialog>
 
           <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
             <DialogTrigger asChild>
               <Button variant="outline" size="sm" className="h-8">
-                Edit
+                Modifica
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Edit User</DialogTitle>
+                <DialogTitle>Modifica utente</DialogTitle>
               </DialogHeader>
               <EditUserForm
                 user={user}
@@ -162,20 +180,20 @@ export const columns: ColumnDef<User>[] = [
           >
             <DialogTrigger asChild>
               <Button variant="destructive" size="sm" className="h-8">
-                Delete
+                Elimina
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Confirm Deletion</DialogTitle>
+                <DialogTitle>Conferma di eliminazione</DialogTitle>
               </DialogHeader>
               <div className="py-4">
                 <p>
-                  Are you sure you want to delete user{" "}
-                  <strong>{user.username}</strong>?
+                  Sei sicuro di voler eliminare <strong>{user.username}</strong>
+                  ?
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  This action cannot be undone.
+                  Questa azione non può essere annullata.
                 </p>
               </div>
               <div className="flex justify-end gap-2">
@@ -183,10 +201,10 @@ export const columns: ColumnDef<User>[] = [
                   variant="outline"
                   onClick={() => setIsDeleteConfirmOpen(false)}
                 >
-                  Cancel
+                  Annulla
                 </Button>
                 <Button variant="destructive" onClick={handleDelete}>
-                  Delete
+                  Elimina
                 </Button>
               </div>
             </DialogContent>
@@ -202,7 +220,22 @@ export function UserTable() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const [data, setData] = useState<User[]>(mockUsers);
+  const [data, setData] = useState<User[]>([]);
+
+  const fetchUsers = async () => {
+    try {
+      const res = await fetch("/api/users");
+      if (!res.ok) throw new Error("Network response was not ok");
+      const users = await res.json();
+      setData(users);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const table = useReactTable({
     data,
@@ -225,7 +258,7 @@ export function UserTable() {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col md:flex-row md:items-center gap-4 py-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-4">
         <Input
           placeholder="Filter usernames..."
           value={
@@ -236,32 +269,41 @@ export function UserTable() {
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex items-center gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto">
+                Columns <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Button
+            variant="outline"
+            className="ml-auto"
+            onClick={() => fetchUsers()}
+          >
+            Refresh Data <RefreshCw className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
       </div>
       <div className="rounded-md border overflow-hidden">
         <div className="overflow-x-auto">
