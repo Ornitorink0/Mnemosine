@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Calendar, Check, Plus, Trash } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -35,25 +35,51 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import availableExercises from "@/lib/availableExercises";
 
-// MANCA IMPLEMENTAZIONE API
+export type User = {
+  id: string;
+  _id: string;
+  username: string;
+  password: string;
+  role: "super" | "admin" | "patient";
+  createdAt: Date;
+  updatedAt: Date;
+  sessionIds: number[];
+  notes: string;
+};
 
-const patients = [
-  { id: 1, name: "Marco Rossi" },
-  { id: 2, name: "Giulia Bianchi" },
-  { id: 3, name: "Luca Verdi" },
-  { id: 4, name: "Sofia Esposito" },
-  { id: 5, name: "Matteo Russo" },
-];
+export type Exercise = {
+  id: number;
+  code: string;
+  name: string;
+  description: string;
+  difficulty?: Array<"easy" | "medium" | "hard">; // Array di difficoltà, può essere vuoto
+};
+
+type ExerciseSelected = {
+  id: number;
+  code: string;
+  name: string;
+  description: string;
+  difficulty: string; // string perché può essere qualsiasi valore presente nell'array delle difficoltà
+};
 
 export default function AssignExercisesPage() {
-  const [selectedPatient, setSelectedPatient] = useState(null);
+  const [selectedPatient, setSelectedPatient] = useState<User | null>(null);
   const [patientPopoverOpen, setPatientPopoverOpen] = useState(false);
-  const [selectedExercises, setSelectedExercises] = useState([]);
+  const [selectedExercises, setSelectedExercises] = useState<
+    ExerciseSelected[]
+  >([]);
 
   const { data: session, status } = useSession();
   console.log("DashboardPage", { session, status });
@@ -61,50 +87,112 @@ export default function AssignExercisesPage() {
     redirect("/login");
   }
 
-  const handleSelectExercise = (exercise) => {
-    if (selectedExercises.some((ex) => ex.id === exercise.id)) {
-      setSelectedExercises(
-        selectedExercises.filter((ex) => ex.id !== exercise.id)
-      );
-    } else {
-      setSelectedExercises([...selectedExercises, exercise]);
+  const [data, setData] = useState<User[]>([]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const res = await fetch("/api/users");
+      if (!res.ok) throw new Error("Network response was not ok");
+      const users = await res.json();
+      setData(users);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
     }
   };
 
-  const handleRemoveExercise = (exerciseId) => {
-    setSelectedExercises(
-      selectedExercises.filter((ex) => ex.id !== exerciseId)
-    );
-  };
+  const patients = data.filter((user) => user.role === "patient");
 
-  const handleAssignSession = () => {
+  function handleToggleExerciseDifficulty(
+    exercise: Exercise,
+    difficulty: string
+  ) {
+    const exists = selectedExercises.some(
+      (ex) => ex.id === exercise.id && ex.difficulty === difficulty
+    );
+    if (exists) {
+      setSelectedExercises((prev) =>
+        prev.filter(
+          (ex) => !(ex.id === exercise.id && ex.difficulty === difficulty)
+        )
+      );
+    } else {
+      setSelectedExercises((prev) => [...prev, { ...exercise, difficulty }]);
+    }
+  }
+
+  function isExerciseDifficultySelected(
+    exerciseId: number,
+    difficulty: string
+  ) {
+    return selectedExercises.some(
+      (ex) => ex.id === exerciseId && ex.difficulty === difficulty
+    );
+  }
+
+  function handleToggleAll(checked: boolean) {
+    if (checked) {
+      setSelectedExercises(
+        availableExercises.flatMap((exercise) =>
+          (exercise.difficulty ?? []).map((d) => ({
+            ...exercise,
+            difficulty: d,
+          }))
+        )
+      );
+    } else {
+      setSelectedExercises([]);
+    }
+  }
+
+  async function handleAssignSession() {
     if (!selectedPatient) {
-      toast({
-        title: "Nessun paziente selezionato",
-        description: "Seleziona un paziente prima di assegnare la sessione",
-        variant: "destructive",
-      });
+      toast.error("Seleziona un paziente prima di assegnare la sessione.");
       return;
     }
 
     if (selectedExercises.length === 0) {
-      toast({
-        title: "Nessun esercizio selezionato",
-        description: "Seleziona almeno un esercizio per la sessione",
-        variant: "destructive",
-      });
+      toast.error("Seleziona almeno un esercizio da assegnare.");
       return;
     }
 
-    // In a real app, this would be an API call
-    toast({
-      title: "Sessione assegnata con successo",
-      description: `${selectedExercises.length} esercizi assegnati a ${selectedPatient.name}`,
-    });
+    try {
+      const response = await fetch("/api/sessions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          patientId: selectedPatient._id,
+          exercises: selectedExercises,
+        }),
+      });
 
-    // Reset form after successful assignment
-    setSelectedExercises([]);
-  };
+      if (!response.ok) {
+        throw new Error("Failed to assign session");
+      }
+
+      const result = await response.json();
+      toast.success("Sessione assegnata con successo!");
+      setSelectedExercises([]);
+      setSelectedPatient(null);
+    } catch (error) {
+      console.error("Error assigning session:", error);
+      toast.error("Errore durante l'assegnazione della sessione.");
+    }
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                    LOGS                                    */
+  /* -------------------------------------------------------------------------- */
+
+  console.log("Selected Patient:", selectedPatient);
+  console.log("Selected Exercises:", selectedExercises);
+
+  /* -------------------------------------------------------------------------- */
 
   return (
     <div className="container mx-auto py-6 px-4 md:py-10 md:px-6">
@@ -123,7 +211,6 @@ export default function AssignExercisesPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Patient Selection */}
           <div className="space-y-2">
             <label className="text-sm font-medium">Paziente</label>
             <Popover
@@ -137,7 +224,7 @@ export default function AssignExercisesPage() {
                   className="w-full justify-between"
                 >
                   {selectedPatient
-                    ? selectedPatient.name
+                    ? selectedPatient.username
                     : "Seleziona un paziente"}
                 </Button>
               </PopoverTrigger>
@@ -148,23 +235,19 @@ export default function AssignExercisesPage() {
                     <CommandEmpty>Nessun paziente trovato.</CommandEmpty>
                     <CommandGroup>
                       <ScrollArea className="h-[200px]">
-                        {patients.map((patient) => (
+                        {patients.map((patient, idx) => (
                           <CommandItem
-                            key={patient.id}
-                            value={patient.name}
+                            key={`${patient.id ?? patient.username}-${idx}`}
+                            value={patient.username}
                             onSelect={() => {
                               setSelectedPatient(patient);
                               setPatientPopoverOpen(false);
                             }}
                           >
-                            <Check
-                              className={`mr-2 h-4 w-4 ${
-                                selectedPatient?.id === patient.id
-                                  ? "opacity-100"
-                                  : "opacity-0"
-                              }`}
-                            />
-                            {patient.name}
+                            {selectedPatient?.id === patient.id && (
+                              <Check className="mr-2 h-4 w-4 opacity-100" />
+                            )}
+                            {patient.username}
                           </CommandItem>
                         ))}
                       </ScrollArea>
@@ -175,7 +258,6 @@ export default function AssignExercisesPage() {
             </Popover>
           </div>
 
-          {/* Exercise Selection */}
           <div className="space-y-2">
             <div className="flex justify-between items-center">
               <label className="text-sm font-medium">
@@ -185,39 +267,85 @@ export default function AssignExercisesPage() {
                 {selectedExercises.length} selezionati
               </span>
             </div>
+
             <Card>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-12"></TableHead>
-                    <TableHead className="w-20">Codice</TableHead>
-                    <TableHead>Nome</TableHead>
-                    <TableHead className="hidden md:table-cell">
+                    <TableCell className="flex items-center justify-center">
+                      <Checkbox
+                        className="accent-primary"
+                        checked={availableExercises.every((exercise) =>
+                          exercise.difficulty?.every((d) =>
+                            isExerciseDifficultySelected(exercise.id, d)
+                          )
+                        )}
+                        onCheckedChange={(checked) =>
+                          handleToggleAll(checked ? true : false)
+                        }
+                      />
+                    </TableCell>
+                    <TableCell className="font-medium">Codice</TableCell>
+                    <TableCell>Nome</TableCell>
+                    <TableCell className="hidden md:table-cell">
                       Descrizione
-                    </TableHead>
+                    </TableCell>
+                    <TableCell>Difficoltà</TableCell>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {availableExercises.map((exercise) => (
-                    <TableRow
-                      key={exercise.id}
-                      onClick={() => handleSelectExercise(exercise)}
-                      className="cursor-pointer"
-                    >
-                      <TableCell>
-                        <Checkbox
-                          checked={selectedExercises.some(
-                            (ex) => ex.id === exercise.id
-                          )}
-                          onCheckedChange={() => handleSelectExercise(exercise)}
-                        />
-                      </TableCell>
+                    <TableRow key={exercise.id} className="cursor-pointer">
+                      <TableCell className="flex items-center justify-center"></TableCell>
                       <TableCell className="font-medium">
                         {exercise.code}
                       </TableCell>
                       <TableCell>{exercise.name}</TableCell>
                       <TableCell className="hidden md:table-cell">
                         {exercise.description}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex flex-col xl:flex-row gap-4 flex-nowrap overflow-x-auto xl:min-w-[220px] mr-4">
+                          {(exercise.difficulty ?? []).map((d) => {
+                            const selected = isExerciseDifficultySelected(
+                              exercise.id,
+                              d
+                            );
+                            return (
+                              <label
+                                key={d}
+                                className={`flex items-center gap-2 px-3 py-2 rounded-full border transition-colors cursor-pointer
+                                  ${
+                                    selected
+                                      ? "bg-primary/10 border-primary text-primary font-semibold shadow-sm"
+                                      : "bg-muted border-muted-foreground/20 text-muted-foreground"
+                                  }
+                                  hover:border-primary hover:bg-primary/20`}
+                                style={{
+                                  minWidth: 90,
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <Checkbox
+                                  className="hidden"
+                                  checked={selected}
+                                  onCheckedChange={() =>
+                                    handleToggleExerciseDifficulty(
+                                      {
+                                        id: exercise.id,
+                                        code: exercise.code,
+                                        name: exercise.name,
+                                        description: exercise.description,
+                                      },
+                                      d
+                                    )
+                                  }
+                                />
+                                <span className="capitalize">{d}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -235,14 +363,15 @@ export default function AssignExercisesPage() {
               <Card>
                 <ScrollArea className="h-[200px]">
                   <div className="p-4 space-y-2">
-                    {selectedExercises.map((exercise) => (
+                    {selectedExercises.map((exercise, idx) => (
                       <div
-                        key={exercise.id}
+                        key={`${exercise.id}-${exercise.difficulty}-${idx}`}
                         className="flex items-center justify-between p-2 rounded-md border"
                       >
                         <div>
                           <div className="font-medium">
-                            {exercise.code} - {exercise.name}
+                            {exercise.code} - {exercise.name} (
+                            {exercise.difficulty})
                           </div>
                           <div className="text-sm text-muted-foreground">
                             {exercise.description}
@@ -251,7 +380,18 @@ export default function AssignExercisesPage() {
                         <Button
                           variant="ghost"
                           size="icon"
-                          onClick={() => handleRemoveExercise(exercise.id)}
+                          onClick={() =>
+                            handleToggleExerciseDifficulty(
+                              {
+                                id: exercise.id,
+                                code: exercise.code,
+                                name: exercise.name,
+                                description: exercise.description,
+                                // Difficoltà da non includere qui
+                              },
+                              exercise.difficulty
+                            )
+                          }
                         >
                           <Trash className="h-4 w-4" />
                         </Button>
