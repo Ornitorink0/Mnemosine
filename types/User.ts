@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import mongoose from "mongoose";
 
 // Questa interfaccia viene usata per rappresentare l'utente nella sessione
 // di next-auth
@@ -11,7 +11,7 @@ declare module "next-auth" {
       role: "super" | "admin" | "patient";
       createdAt: Date;
       updatedAt: Date;
-      sessionIds: number[];
+      sessionIds: [mongoose.Schema.Types.ObjectId];
       notes: string;
     };
   }
@@ -23,7 +23,7 @@ declare module "next-auth" {
     role: "super" | "admin" | "patient";
     createdAt: Date;
     updatedAt: Date;
-    sessionIds: number[];
+    sessionIds: [mongoose.Schema.Types.ObjectId];
     notes: string;
   }
 }
@@ -36,7 +36,7 @@ declare module "next-auth/jwt" {
     role: "super" | "admin" | "patient";
     createdAt: Date;
     updatedAt: Date;
-    sessionIds: number[];
+    sessionIds: [mongoose.Schema.Types.ObjectId];
     notes: string;
   }
 }
