@@ -50,7 +50,7 @@ export default function LoginForm() {
     if (session) {
       router.push("/dashboard");
     }
-  }, [session]);
+  }, [session, router]);
 
   return (
     <div className="flex h-[calc(100dvh-4em)] items-center justify-center">
