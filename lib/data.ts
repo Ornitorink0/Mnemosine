@@ -52,7 +52,6 @@ export async function addUser(
     });
 
     if (!res.ok) {
-      const errorData = await res.json();
       alert("Username già in uso");
       return;
     }

@@ -16,5 +16,4 @@ const SessionSchema = new mongoose.Schema({
   duration: Number,
 });
 
-export default mongoose.models.Session ||
-  mongoose.model("Session", SessionSchema);
+export default mongoose.model("Session", SessionSchema);
