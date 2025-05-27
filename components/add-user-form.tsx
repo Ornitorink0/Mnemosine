@@ -30,12 +30,6 @@ export function AddUserForm() {
     role: "",
   });
 
-  const roles = [
-    { value: "super", label: "Super" },
-    { value: "admin", label: "Admin" },
-    { value: "patient", label: "Patient" },
-  ];
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
