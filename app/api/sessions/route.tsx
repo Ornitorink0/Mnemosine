@@ -8,10 +8,16 @@ export async function GET() {
   const sessions = await SessionModel.find().lean();
 
   const formatted = sessions.map((session) => ({
-    _id: session.id.toString(),
-    userId: session.userId.toString(),
-    createdAt: session.createdAt.toISOString(),
-    updatedAt: session.updatedAt.toISOString(),
+    _id: session._id.toString(),
+    assignedOn: session.assignedOn?.toISOString(),
+    completedOn: session.completedOn?.toISOString(),
+    exercises:
+      session.exercises?.map((ex) => ({
+        exerciseId: ex.id.toString(),
+        description: ex.description,
+        timeSpent: ex.timeSpent,
+        nErrors: ex.nErrors,
+      })) || [],
   }));
 
   return NextResponse.json(formatted);
@@ -56,7 +62,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       sessionId: newSession._id.toString(),
-      assignedOn: newSession.assignedOn.toISOString(),
+      assignedOn: newSession.assignedOn?.toISOString(),
     });
   } catch (error) {
     console.error("Errore nella POST /api/sessions:", error);
