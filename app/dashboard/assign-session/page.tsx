@@ -31,16 +31,9 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
@@ -174,8 +167,6 @@ export default function AssignExercisesPage() {
       if (!response.ok) {
         throw new Error("Failed to assign session");
       }
-
-      const result = await response.json();
       toast.success("Sessione assegnata con successo!");
       setSelectedExercises([]);
       setSelectedPatient(null);
