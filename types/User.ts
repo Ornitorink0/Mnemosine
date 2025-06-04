@@ -5,25 +5,24 @@ import mongoose from "mongoose";
 declare module "next-auth" {
   interface Session {
     user: {
-      id: unknown;
-      username: String;
-      password: String;
+      id: string;
+      username: string;
       role: "super" | "admin" | "patient";
       createdAt: Date;
       updatedAt: Date;
-      sessionIds: [mongoose.Schema.Types.ObjectId];
+      sessionIds: string[];
       notes: string;
     };
   }
 
   // Questa interfaccia rappresenta l'utente nel database
   interface User {
-    username: String;
-    password: String;
+    id: string;
+    username: string;
     role: "super" | "admin" | "patient";
     createdAt: Date;
     updatedAt: Date;
-    sessionIds: [mongoose.Schema.Types.ObjectId];
+    sessionIds: string[];
     notes: string;
   }
 }
@@ -31,12 +30,12 @@ declare module "next-auth" {
 // Questa interfaccia viene usata per rappresentare l'utente nel token JWT
 declare module "next-auth/jwt" {
   interface JWT {
-    username: String;
-    password: String;
+    id: string;
+    username: string;
     role: "super" | "admin" | "patient";
     createdAt: Date;
     updatedAt: Date;
-    sessionIds: [mongoose.Schema.Types.ObjectId];
+    sessionIds: string[];
     notes: string;
   }
 }
