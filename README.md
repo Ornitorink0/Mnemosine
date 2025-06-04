@@ -1,4 +1,4 @@
-# MnemosineFrontend
+# Mnemosine
 
 **Mnemosine** è un'applicazione web sviluppata per supportare la diagnosi e il monitoraggio dei pazienti affetti dal morbo di Alzheimer. Questo progetto è stato creato utilizzando [NextJS (TS)](https://nextjs.org), [Shadcn](https://ui.shadcn.com/), [Tailwind CSS](https://tailwindcss.com/) e [MongoDB](https://www.mongodb.com/).
 
@@ -79,7 +79,7 @@ MnemosineFE/
 ├── tests/       # Test automatici (unitari, E2E, ecc.)
 ├── types/       # Tipizzazioni TypeScript personalizzate
 └── utils/       # Funzioni di utilità generiche
-...              # File di configurazione
+...               # File di configurazione
 ```
 
 Questa organizzazione facilita la manutenzione e la scalabilità del progetto.
