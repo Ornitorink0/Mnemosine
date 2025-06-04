@@ -1,26 +1,26 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import Link from "next/link";
-import { ChevronDown, Menu } from "lucide-react";
+import * as React from 'react';
+import Link from 'next/link';
+import { ChevronDown, Menu } from 'lucide-react';
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 import {
   Sheet,
   SheetContent,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { ModeToggle } from "./ui/self/mode-toggle";
-import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
+} from '@/components/ui/sheet';
+import { ModeToggle } from './ui/self/mode-toggle';
+import { signOut, useSession } from 'next-auth/react';
+import Image from 'next/image';
 
 interface NavItem {
   title: string;
@@ -31,34 +31,34 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    title: "Home",
-    href: "/",
+    title: 'Home',
+    href: '/',
   },
   {
-    title: "About",
-    href: "/about",
+    title: 'About',
+    href: '/about',
     children: [
       {
-        title: "La nostra storia",
-        href: "/about/story",
+        title: 'La nostra storia',
+        href: '/about/story',
       },
       {
-        title: "Team",
-        href: "/about/team",
+        title: 'Team',
+        href: '/about/team',
       },
       {
-        title: "Careers",
-        href: "/about/careers",
+        title: 'Careers',
+        href: '/about/careers',
       },
       {
-        title: "Press Kit",
-        href: "/about/press",
+        title: 'Press Kit',
+        href: '/about/press',
       },
     ],
   },
   {
-    title: "Contatti",
-    href: "/contatti",
+    title: 'Contatti',
+    href: '/contatti',
   },
 ];
 
@@ -71,7 +71,12 @@ export default function NavBar() {
       <div className="container flex mx-auto h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center space-x-4">
-            <Image src={"/mnemosine-logo.svg"} alt="Logo" width={32} height={32} />
+            <Image
+              src={'/mnemosine-logo.svg'}
+              alt="Logo"
+              width={32}
+              height={32}
+            />
             <span className="hidden text-xl font-bold sm:inline-block">
               Mnemosine
             </span>
@@ -117,8 +122,8 @@ export default function NavBar() {
                 key={item.title}
                 href={item.href}
                 className={cn(
-                  "text-base font-medium transition-colors hover:text-primary",
-                  item.disabled && "cursor-not-allowed opacity-80"
+                  'text-base font-medium transition-colors hover:text-primary',
+                  item.disabled && 'cursor-not-allowed opacity-80'
                 )}
               >
                 {item.title}
@@ -169,8 +174,8 @@ export default function NavBar() {
                         <Link
                           href={item.href}
                           className={cn(
-                            "text-base font-medium transition-colors hover:text-primary",
-                            item.disabled && "cursor-not-allowed opacity-80"
+                            'text-base font-medium transition-colors hover:text-primary',
+                            item.disabled && 'cursor-not-allowed opacity-80'
                           )}
                           onClick={() => setIsOpen(false)}
                         >
