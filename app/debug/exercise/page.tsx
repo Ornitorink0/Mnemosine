@@ -1,20 +1,38 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import dynamic from "next/dynamic";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { useSession } from "next-auth/react";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import dynamic from 'next/dynamic';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { useSession } from 'next-auth/react';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+
+type ExerciseProps = {
+  difficulty: 'easy' | 'medium' | 'hard';
+};
 
 function ExercisePicker() {
   const { data: session } = useSession();
-  const [exerciseCode, setExerciseCode] = useState("");
-  const [DynamicExercise, setDynamicExercise] =
-    useState<React.ComponentType | null>(null);
+  const [exerciseCode, setExerciseCode] = useState('');
+  const [searchedCode, setSearchedCode] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>(
+    'easy'
+  );
 
-  if (session?.user?.role !== "super" && session?.user?.role !== "admin") {
+  const difficultyLabel = {
+    easy: 'Facile',
+    medium: 'Intermedio',
+    hard: 'Difficile',
+  }[difficulty];
+
+  if (session?.user?.role !== 'super' && session?.user?.role !== 'admin') {
     return (
       <div className="flex min-h-[80vh] items-center justify-center">
         <Card className="w-full max-w-md py-8 px-6 shadow-lg">
@@ -37,24 +55,26 @@ function ExercisePicker() {
     );
   }
 
-  const handleSearch = async (e: React.FormEvent) => {
+  const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    setDynamicExercise(null);
     if (!exerciseCode.trim()) return;
-    try {
-      const DynamicComp = dynamic(() =>
-        import(`@/components/exercises/${exerciseCode.trim()}.tsx`).catch(
-          () => {
-            throw new Error("Exercise not found");
-          }
-        )
-      );
-      setDynamicExercise(() => DynamicComp);
-    } catch (err) {
-      setError("Exercise not found");
-    }
+    setSearchedCode(exerciseCode.trim());
   };
+
+  // Caricamento dinamico solo se abbiamo un codice cercato
+  const DynamicExercise = searchedCode
+    ? dynamic<ExerciseProps>(
+        () =>
+          import(`@/components/exercises/${searchedCode}.tsx`).then(
+            (mod) => mod.default
+          ),
+        {
+          ssr: false,
+          loading: () => <p className="text-center">Caricamento...</p>,
+        }
+      )
+    : null;
 
   return (
     <div className="flex min-h-[80vh] items-center justify-center">
@@ -75,9 +95,28 @@ function ExercisePicker() {
           <Button type="submit" className="h-10">
             Cerca
           </Button>
+          {/* Difficoltà */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="h-10">{difficultyLabel}</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => setDifficulty('easy')}>
+                Facile
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setDifficulty('medium')}>
+                Intermedio
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setDifficulty('hard')}>
+                Difficile
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </form>
         {error && <div className="text-red-500 text-center mb-2">{error}</div>}
-        <div className="mt-4">{DynamicExercise && <DynamicExercise />}</div>
+        <div className="mt-4">
+          {DynamicExercise && <DynamicExercise difficulty={difficulty} />}
+        </div>
       </Card>
     </div>
   );
