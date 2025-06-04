@@ -75,15 +75,15 @@ export function EditUserForm({ user, onSuccess }: EditUserFormProps) {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="role">Role</Label>
+        <Label htmlFor="role">Ruolo</Label>
         <Select value={formData.role} onValueChange={handleRoleChange}>
           <SelectTrigger id="role" className="focus-visible:ring-primary">
-            <SelectValue placeholder="Select role" />
+            <SelectValue placeholder="Seleziona un ruolo" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="super">Super</SelectItem>
-            <SelectItem value="admin">Admin</SelectItem>
-            <SelectItem value="patient">Patient</SelectItem>
+            <SelectItem value="super">Super utente</SelectItem>
+            <SelectItem value="admin">Amministratore</SelectItem>
+            <SelectItem value="patient">Paziente</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -94,15 +94,15 @@ export function EditUserForm({ user, onSuccess }: EditUserFormProps) {
           name="notes"
           value={formData.notes}
           onChange={handleChange}
-          placeholder="Edit the note about this user..."
+          placeholder="Inserisci una nota relativa all'utente..."
           className="min-h-[100px] focus-visible:ring-primary max-h-[30dvh]"
         />
       </div>
       <div className="flex justify-end gap-2 pt-2">
         <Button type="button" variant="outline" onClick={onSuccess}>
-          Cancel
+          Annulla
         </Button>
-        <Button type="submit">Save Changes</Button>
+        <Button type="submit">Salva</Button>
       </div>
     </form>
   );
