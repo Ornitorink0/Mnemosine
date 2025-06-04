@@ -32,8 +32,6 @@ const getWordsByDifficulty = (difficulty: 'easy' | 'medium' | 'hard') => {
 };
 
 const Exercise101: React.FC<Props> = ({ difficulty }) => {
-  const esInfo = availableExercises[0];
-
   const [phase, setPhase] = useState<'memorize' | 'recall' | 'result'>(
     'memorize'
   );
