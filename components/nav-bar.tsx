@@ -136,7 +136,7 @@ export default function NavBar() {
           <div className="hidden md:flex md:gap-2">
             {user ? (
               <>
-                <Link href="/dashboard" key={user.id}>
+                <Link href="/dashboard" key={String(user.id)}>
                   <Button variant="secondary" size="sm" className="px-4">
                     Dashboard
                   </Button>
@@ -220,7 +220,20 @@ export default function NavBar() {
   );
 }
 
-function useUser(): { user: any; signOut: () => void } {
+function useUser(): {
+  user:
+    | {
+        id: unknown;
+        username: string;
+        role: 'super' | 'admin' | 'patient';
+        createdAt: Date;
+        updatedAt: Date;
+        sessionIds: string[];
+        notes: string;
+      }
+    | undefined;
+  signOut: () => void;
+} {
   const { data: session } = useSession();
   return { user: session?.user, signOut }; // Restituisci la funzione signOut senza ridefinirla
 }

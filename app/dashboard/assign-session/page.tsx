@@ -132,6 +132,7 @@ export default function AssignExercisesPage() {
         availableExercises.flatMap((exercise) =>
           (exercise.difficulty ?? []).map((d) => ({
             ...exercise,
+            id: Number(exercise.id),
             difficulty: d,
           }))
         )
@@ -268,7 +269,7 @@ export default function AssignExercisesPage() {
                         className="accent-primary"
                         checked={availableExercises.every((exercise) =>
                           exercise.difficulty?.every((d) =>
-                            isExerciseDifficultySelected(exercise.id, d)
+                            isExerciseDifficultySelected(Number(exercise.id), d)
                           )
                         )}
                         onCheckedChange={(checked) =>
@@ -299,7 +300,7 @@ export default function AssignExercisesPage() {
                         <div className="flex flex-col xl:flex-row gap-4 flex-nowrap overflow-x-auto xl:min-w-[220px] mr-4">
                           {(exercise.difficulty ?? []).map((d) => {
                             const selected = isExerciseDifficultySelected(
-                              exercise.id,
+                              Number(exercise.id),
                               d
                             );
                             return (
@@ -323,7 +324,7 @@ export default function AssignExercisesPage() {
                                   onCheckedChange={() =>
                                     handleToggleExerciseDifficulty(
                                       {
-                                        id: exercise.id,
+                                        id: Number(exercise.id),
                                         code: exercise.code,
                                         name: exercise.name,
                                         description: exercise.description,

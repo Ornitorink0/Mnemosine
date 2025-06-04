@@ -346,9 +346,7 @@ function StepConnector({ isComplete }: StepConnectorProps) {
   );
 }
 
-interface CheckIconProps extends React.SVGProps<SVGSVGElement> {}
-
-function CheckIcon(props: CheckIconProps) {
+function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -362,8 +360,8 @@ function CheckIcon(props: CheckIconProps) {
         animate={{ pathLength: 1 }}
         transition={{
           delay: 0.1,
-          type: "tween",
-          ease: "easeOut",
+          type: 'tween',
+          ease: 'easeOut',
           duration: 0.3,
         }}
         strokeLinecap="round"
