@@ -1,6 +1,6 @@
 # Mnemosine
 
-**Mnemosine** è un'applicazione web sviluppata per supportare la diagnosi e il monitoraggio dei pazienti affetti dal morbo di Alzheimer. Questo progetto è stato creato utilizzando [NextJS (TS)](https://nextjs.org), [Shadcn](https://ui.shadcn.com/), [Tailwind CSS](https://tailwindcss.com/) e [MongoDB](https://www.mongodb.com/).
+**Mnemosine** è un'applicazione web sviluppata per supportare la diagnosi e il monitoraggio dei pazienti affetti dal morbo di Alzheimer. Questo progetto è stato creato utilizzando [NextJS (TS)](https://nextjs.org), [ShadcnUI](https://ui.shadcn.com/), [TailwindCSS](https://tailwindcss.com/) e [MongoDB](https://www.mongodb.com/).
 
 È pensato come strumento diagnostico e interattivo, accessibile da browser, che consente ai pazienti di svolgere esercizi mirati come associazioni logiche, cifrari, test di attenzione e altro ancora. Ogni esercizio è progettato per raccogliere dati significativi sulle capacità cognitive dell’utente, tra cui:
 
