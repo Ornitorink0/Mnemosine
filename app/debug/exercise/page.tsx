@@ -83,7 +83,7 @@ function ExercisePicker() {
           Debug Exercises
         </CardTitle>
         <CardHeader className="text-gray-600 text-center">
-          Inserisci il codice dell'esercizio da provare.
+          Inserisci il codice dell&apos;esercizio da provare.
         </CardHeader>
         <form onSubmit={handleSearch} className="mb-4 flex gap-2">
           <Input
