@@ -3,8 +3,7 @@
 		"prefix": "mn-pro-header",
 		"body": [
 			"/**",
-			" * @file        $TM_FILENAME",
-			" * @module      ${1:module/path}",
+			" * @file        $RELATIVE_FILEPATH",
 			" * @author      ${2:GitHubUsername} <${3:email@example.com}>",
 			" * @created     ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
 			" * @updated     ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
@@ -18,7 +17,7 @@
 			" * ${7:Additional notes or technical details}",
 			" *",
 			" * @changelog",
-			" * https://github.com/Ornitorink0/Mnemosine/commits/main/${8:module/path}/$TM_FILENAME",
+			" * https://github.com/Ornitorink0/Mnemosine/commits/main/${RELATIVE_FILEPATH}",
 			" */"
 		],
 		"description": "Professional header template for Mnemosine web application files"
