@@ -1,15 +1,14 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { connectToDB } from '@/lib/mongodb';
 import UserModel from '@/models/User';
 
-export async function PUT(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(req: NextRequest) {
   try {
     await connectToDB();
     const body = await req.json();
-    const updated = await UserModel.findByIdAndUpdate(params.id, body, {
+    const { pathname } = new URL(req.url);
+    const id = pathname.split('/').pop();
+    const updated = await UserModel.findByIdAndUpdate(id, body, {
       new: true,
     });
     if (!updated) {
@@ -25,13 +24,12 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(req: NextRequest) {
   try {
     await connectToDB();
-    const deleted = await UserModel.findByIdAndDelete(params.id);
+    const { pathname } = new URL(req.url);
+    const id = pathname.split('/').pop();
+    const deleted = await UserModel.findByIdAndDelete(id);
     if (!deleted) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
