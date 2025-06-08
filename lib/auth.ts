@@ -39,7 +39,9 @@ export const authOptions: NextAuthOptions = {
           id: user._id.toString(),
           username: user.username,
           role: user.role,
-          sessionIds: user.sessionIds.map((id: import('mongoose').Types.ObjectId) => id.toString()),
+          sessionIds: user.sessionIds.map(
+            (id: import('mongoose').Types.ObjectId) => id.toString()
+          ),
           notes: user.notes,
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,

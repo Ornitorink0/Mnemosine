@@ -1,5 +1,5 @@
-import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
-import { cn } from "@/lib/utils";
+import { AnimatedGridPattern } from '@/components/magicui/animated-grid-pattern';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
   return (
@@ -11,8 +11,8 @@ export default function Home() {
           duration={3}
           repeatDelay={1}
           className={cn(
-            "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
-            "inset-x-0 inset-y-[-50%] h-[200%] skew-y-12"
+            '[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]',
+            'inset-x-0 inset-y-[-50%] h-[200%] skew-y-12'
           )}
         />
         {/* <HalftoneWaves /> */}

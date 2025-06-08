@@ -1,33 +1,33 @@
-"use client";
+'use client';
 
-import type React from "react";
-import { useState } from "react";
+import type React from 'react';
+import { useState } from 'react';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Plus } from "lucide-react";
-import { addUser } from "@/lib/data";
+} from '@/components/ui/select';
+import { Plus } from 'lucide-react';
+import { addUser } from '@/lib/data';
 
 export function AddUserForm() {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    role: "",
+    username: '',
+    password: '',
+    role: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +37,7 @@ export function AddUserForm() {
     }));
   };
 
-  const handleRoleChange = (value: "super" | "admin" | "patient") => {
+  const handleRoleChange = (value: 'super' | 'admin' | 'patient') => {
     setFormData((prev) => ({
       ...prev,
       role: value,
@@ -50,14 +50,14 @@ export function AddUserForm() {
       await addUser(
         formData.username,
         formData.password,
-        formData.role === "super"
-          ? "super"
-          : formData.role === "admin"
-          ? "admin"
-          : "patient"
+        formData.role === 'super'
+          ? 'super'
+          : formData.role === 'admin'
+            ? 'admin'
+            : 'patient'
       );
       setIsOpen(false);
-      setFormData({ username: "", password: "", role: "" }); // reset
+      setFormData({ username: '', password: '', role: '' }); // reset
     } catch (error) {
       console.error("Errore nell'aggiunta utente:", error);
       // eventualmente mostra un toast qui

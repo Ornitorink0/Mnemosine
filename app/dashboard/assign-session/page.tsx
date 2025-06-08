@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Calendar, Check, Plus, Trash } from "lucide-react";
+import { useEffect, useState } from 'react';
+import { Calendar, Check, Plus, Trash } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -11,8 +11,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
+} from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Command,
   CommandEmpty,
@@ -20,31 +20,31 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from '@/components/ui/command';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { ScrollArea } from "@/components/ui/scroll-area";
+} from '@/components/ui/popover';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Table,
   TableBody,
   TableCell,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { toast } from "sonner";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
-import availableExercises from "@/lib/availableExercises";
+} from '@/components/ui/table';
+import { toast } from 'sonner';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+import availableExercises from '@/lib/availableExercises';
 
 export type User = {
   id: string;
   _id: string;
   username: string;
   password: string;
-  role: "super" | "admin" | "patient";
+  role: 'super' | 'admin' | 'patient';
   createdAt: Date;
   updatedAt: Date;
   sessionIds: number[];
@@ -56,7 +56,7 @@ export type Exercise = {
   code: string;
   name: string;
   description: string;
-  difficulty?: Array<"easy" | "medium" | "hard">; // Array di difficoltà, può essere vuoto
+  difficulty?: Array<'easy' | 'medium' | 'hard'>; // Array di difficoltà, può essere vuoto
 };
 
 type ExerciseSelected = {
@@ -75,9 +75,9 @@ export default function AssignExercisesPage() {
   >([]);
 
   const { data: session, status } = useSession();
-  console.log("DashboardPage", { session, status });
+  console.log('DashboardPage', { session, status });
   if (!session) {
-    redirect("/login");
+    redirect('/login');
   }
 
   const [data, setData] = useState<User[]>([]);
@@ -88,16 +88,16 @@ export default function AssignExercisesPage() {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch("/api/users");
-      if (!res.ok) throw new Error("Network response was not ok");
+      const res = await fetch('/api/users');
+      if (!res.ok) throw new Error('Network response was not ok');
       const users = await res.json();
       setData(users);
     } catch (error) {
-      console.error("Failed to fetch users:", error);
+      console.error('Failed to fetch users:', error);
     }
   };
 
-  const patients = data.filter((user) => user.role === "patient");
+  const patients = data.filter((user) => user.role === 'patient');
 
   function handleToggleExerciseDifficulty(
     exercise: Exercise,
@@ -144,20 +144,20 @@ export default function AssignExercisesPage() {
 
   async function handleAssignSession() {
     if (!selectedPatient) {
-      toast.error("Seleziona un paziente prima di assegnare la sessione.");
+      toast.error('Seleziona un paziente prima di assegnare la sessione.');
       return;
     }
 
     if (selectedExercises.length === 0) {
-      toast.error("Seleziona almeno un esercizio da assegnare.");
+      toast.error('Seleziona almeno un esercizio da assegnare.');
       return;
     }
 
     try {
-      const response = await fetch("/api/sessions", {
-        method: "POST",
+      const response = await fetch('/api/sessions', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           patientId: selectedPatient._id,
@@ -166,13 +166,13 @@ export default function AssignExercisesPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to assign session");
+        throw new Error('Failed to assign session');
       }
-      toast.success("Sessione assegnata con successo!");
+      toast.success('Sessione assegnata con successo!');
       setSelectedExercises([]);
       setSelectedPatient(null);
     } catch (error) {
-      console.error("Error assigning session:", error);
+      console.error('Error assigning session:', error);
       toast.error("Errore durante l'assegnazione della sessione.");
     }
   }
@@ -181,8 +181,8 @@ export default function AssignExercisesPage() {
   /*                                    LOGS                                    */
   /* -------------------------------------------------------------------------- */
 
-  console.log("Selected Patient:", selectedPatient);
-  console.log("Selected Exercises:", selectedExercises);
+  console.log('Selected Patient:', selectedPatient);
+  console.log('Selected Exercises:', selectedExercises);
 
   /* -------------------------------------------------------------------------- */
 
@@ -217,7 +217,7 @@ export default function AssignExercisesPage() {
                 >
                   {selectedPatient
                     ? selectedPatient.username
-                    : "Seleziona un paziente"}
+                    : 'Seleziona un paziente'}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-[300px] p-0">
@@ -309,13 +309,13 @@ export default function AssignExercisesPage() {
                                 className={`flex items-center gap-2 px-3 py-2 rounded-full border transition-colors cursor-pointer
                                   ${
                                     selected
-                                      ? "bg-primary/10 border-primary text-primary font-semibold shadow-sm"
-                                      : "bg-muted border-muted-foreground/20 text-muted-foreground"
+                                      ? 'bg-primary/10 border-primary text-primary font-semibold shadow-sm'
+                                      : 'bg-muted border-muted-foreground/20 text-muted-foreground'
                                   }
                                   hover:border-primary hover:bg-primary/20`}
                                 style={{
                                   minWidth: 90,
-                                  justifyContent: "center",
+                                  justifyContent: 'center',
                                 }}
                               >
                                 <Checkbox

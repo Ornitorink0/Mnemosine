@@ -1,8 +1,8 @@
-import { notFound } from "next/navigation";
-import connectToDB from "@/lib/mongodb";
-import SessionModel from "@/models/Session";
-import { Types } from "mongoose";
-import SessionStepperClient from "@/components/SessionStepper";
+import { notFound } from 'next/navigation';
+import connectToDB from '@/lib/mongodb';
+import SessionModel from '@/models/Session';
+import { Types } from 'mongoose';
+import SessionStepperClient from '@/components/SessionStepper';
 
 type SessionPageProps = {
   params: {
@@ -34,8 +34,8 @@ export default async function SessionPage({ params }: SessionPageProps) {
 
   const exercises =
     session.exercises?.map((ex: Exercise) => ({
-      exerciseId: ex.exerciseId ?? "",
-      description: ex.description ?? "",
+      exerciseId: ex.exerciseId ?? '',
+      description: ex.description ?? '',
       timeSpent: ex.timeSpent ?? 0,
       nErrors: ex.nErrors ?? 0,
     })) ?? [];

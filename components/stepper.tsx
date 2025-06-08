@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, {
   useState,
@@ -7,8 +7,8 @@ import React, {
   useLayoutEffect,
   HTMLAttributes,
   ReactNode,
-} from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+} from 'react';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 
 interface StepperProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -36,14 +36,14 @@ export default function Stepper({
   initialStep = 1,
   onStepChange = () => {},
   onFinalStepCompleted = () => {},
-  stepCircleContainerClassName = "",
-  stepContainerClassName = "",
-  contentClassName = "",
-  footerClassName = "",
+  stepCircleContainerClassName = '',
+  stepContainerClassName = '',
+  contentClassName = '',
+  footerClassName = '',
   backButtonProps = {},
   nextButtonProps = {},
-  backButtonText = "Back",
-  nextButtonText = "Continue",
+  backButtonText = 'Back',
+  nextButtonText = 'Continue',
   disableStepIndicators = false,
   renderStepIndicator,
   ...rest
@@ -90,7 +90,7 @@ export default function Stepper({
     >
       <div
         className={`mx-auto w-full max-w-md rounded-4xl shadow-xl ${stepCircleContainerClassName}`}
-        style={{ border: "1px solid #222" }}
+        style={{ border: '1px solid #222' }}
       >
         <div
           className={`${stepContainerClassName} flex w-full items-center p-8`}
@@ -141,7 +141,7 @@ export default function Stepper({
           <div className={`px-8 pb-8 ${footerClassName}`}>
             <div
               className={`mt-10 flex ${
-                currentStep !== 1 ? "justify-between" : "justify-end"
+                currentStep !== 1 ? 'justify-between' : 'justify-end'
               }`}
             >
               {currentStep !== 1 && (
@@ -149,8 +149,8 @@ export default function Stepper({
                   onClick={handleBack}
                   className={`duration-350 rounded px-2 py-1 transition ${
                     currentStep === 1
-                      ? "pointer-events-none opacity-50 text-neutral-400"
-                      : "text-neutral-400 hover:text-neutral-700"
+                      ? 'pointer-events-none opacity-50 text-neutral-400'
+                      : 'text-neutral-400 hover:text-neutral-700'
                   }`}
                   {...backButtonProps}
                 >
@@ -162,7 +162,7 @@ export default function Stepper({
                 className="duration-350 flex items-center justify-center rounded-full bg-green-500 py-1.5 px-3.5 font-medium tracking-tight text-white transition hover:bg-green-600 active:bg-green-700"
                 {...nextButtonProps}
               >
-                {isLastStep ? "Complete" : nextButtonText}
+                {isLastStep ? 'Complete' : nextButtonText}
               </button>
             </div>
           </div>
@@ -185,15 +185,15 @@ function StepContentWrapper({
   currentStep,
   direction,
   children,
-  className = "",
+  className = '',
 }: StepContentWrapperProps) {
   const [parentHeight, setParentHeight] = useState<number>(0);
 
   return (
     <motion.div
-      style={{ position: "relative", overflow: "hidden" }}
+      style={{ position: 'relative', overflow: 'hidden' }}
       animate={{ height: isCompleted ? 0 : parentHeight }}
-      transition={{ type: "spring", duration: 0.4 }}
+      transition={{ type: 'spring', duration: 0.4 }}
       className={className}
     >
       <AnimatePresence initial={false} mode="sync" custom={direction}>
@@ -239,7 +239,7 @@ function SlideTransition({
       animate="center"
       exit="exit"
       transition={{ duration: 0.4 }}
-      style={{ position: "absolute", left: 0, right: 0, top: 0 }}
+      style={{ position: 'absolute', left: 0, right: 0, top: 0 }}
     >
       {children}
     </motion.div>
@@ -248,15 +248,15 @@ function SlideTransition({
 
 const stepVariants: Variants = {
   enter: (dir: number) => ({
-    x: dir >= 0 ? "-100%" : "100%",
+    x: dir >= 0 ? '-100%' : '100%',
     opacity: 0,
   }),
   center: {
-    x: "0%",
+    x: '0%',
     opacity: 1,
   },
   exit: (dir: number) => ({
-    x: dir >= 0 ? "50%" : "-50%",
+    x: dir >= 0 ? '50%' : '-50%',
     opacity: 0,
   }),
 };
@@ -284,10 +284,10 @@ function StepIndicator({
 }: StepIndicatorProps) {
   const status =
     currentStep === step
-      ? "active"
+      ? 'active'
       : currentStep < step
-        ? "inactive"
-        : "complete";
+        ? 'inactive'
+        : 'complete';
 
   const handleClick = () => {
     if (step !== currentStep && !disableStepIndicators) {
@@ -304,16 +304,16 @@ function StepIndicator({
     >
       <motion.div
         variants={{
-          inactive: { scale: 1, backgroundColor: "#222", color: "#a3a3a3" },
-          active: { scale: 1, backgroundColor: "#00d8ff", color: "#00d8ff" },
-          complete: { scale: 1, backgroundColor: "#00d8ff", color: "#3b82f6" },
+          inactive: { scale: 1, backgroundColor: '#222', color: '#a3a3a3' },
+          active: { scale: 1, backgroundColor: '#00d8ff', color: '#00d8ff' },
+          complete: { scale: 1, backgroundColor: '#00d8ff', color: '#3b82f6' },
         }}
         transition={{ duration: 0.3 }}
         className="flex h-8 w-8 items-center justify-center rounded-full font-semibold"
       >
-        {status === "complete" ? (
+        {status === 'complete' ? (
           <CheckIcon className="h-4 w-4 text-black" />
-        ) : status === "active" ? (
+        ) : status === 'active' ? (
           <div className="h-3 w-3 rounded-full bg-[#060606]" />
         ) : (
           <span className="text-sm">{step}</span>
@@ -329,8 +329,8 @@ interface StepConnectorProps {
 
 function StepConnector({ isComplete }: StepConnectorProps) {
   const lineVariants: Variants = {
-    incomplete: { width: 0, backgroundColor: "transparent" },
-    complete: { width: "100%", backgroundColor: "#00d8ff" },
+    incomplete: { width: 0, backgroundColor: 'transparent' },
+    complete: { width: '100%', backgroundColor: '#00d8ff' },
   };
 
   return (
@@ -339,7 +339,7 @@ function StepConnector({ isComplete }: StepConnectorProps) {
         className="absolute left-0 top-0 h-full"
         variants={lineVariants}
         initial={false}
-        animate={isComplete ? "complete" : "incomplete"}
+        animate={isComplete ? 'complete' : 'incomplete'}
         transition={{ duration: 0.4 }}
       />
     </div>

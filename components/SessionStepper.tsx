@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Stepper, { Step } from "./stepper";
-import { loadExerciseComponent } from "@/utils/loadExerciseComponent";
+import Stepper, { Step } from './stepper';
+import { loadExerciseComponent } from '@/utils/loadExerciseComponent';
 
 type Exercise = {
   exerciseId: string;
@@ -18,8 +18,8 @@ export default function SessionStepperClient({ exercises }: Props) {
   return (
     <Stepper
       initialStep={0}
-      onStepChange={(step) => console.log("Step changed:", step)}
-      onFinalStepCompleted={() => alert("Sessione completata!")}
+      onStepChange={(step) => console.log('Step changed:', step)}
+      onFinalStepCompleted={() => alert('Sessione completata!')}
       backButtonText="Indietro"
       nextButtonText="Avanti"
     >

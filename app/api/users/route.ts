@@ -1,6 +1,6 @@
-import connectToDB from "@/lib/mongodb";
-import { NextResponse } from "next/server";
-import UserModel from "@/models/User";
+import connectToDB from '@/lib/mongodb';
+import { NextResponse } from 'next/server';
+import UserModel from '@/models/User';
 
 export async function GET() {
   await connectToDB();

@@ -1,7 +1,7 @@
-import connectToDB from "@/lib/mongodb";
-import { NextResponse } from "next/server";
-import SessionModel from "@/models/Session";
-import mongoose from "mongoose";
+import connectToDB from '@/lib/mongodb';
+import { NextResponse } from 'next/server';
+import SessionModel from '@/models/Session';
+import mongoose from 'mongoose';
 
 export async function GET() {
   await connectToDB();
@@ -24,22 +24,22 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  console.log("POST /api/sessions called");
+  console.log('POST /api/sessions called');
   try {
     const body = await request.json();
-    console.log("Request body:", body);
+    console.log('Request body:', body);
     const { patientId, exercises } = body;
 
     if (!patientId || !Array.isArray(exercises)) {
-      console.warn("Missing required fields:", { patientId, exercises });
+      console.warn('Missing required fields:', { patientId, exercises });
       return NextResponse.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
     await connectToDB();
-    console.log("Connected to DB");
+    console.log('Connected to DB');
 
     // 1. Crea una nuova sessione
     const newSession = new SessionModel({
@@ -48,26 +48,26 @@ export async function POST(request: Request) {
     });
 
     await newSession.save();
-    console.log("New session saved:", newSession);
+    console.log('New session saved:', newSession);
 
     // 2. Aggiungi l'ID della sessione salvata all'utente
-    const updatedUser = await mongoose.model("User").findByIdAndUpdate(
+    const updatedUser = await mongoose.model('User').findByIdAndUpdate(
       patientId,
       {
         $push: { sessionIds: newSession._id },
       },
       { new: true }
     );
-    console.log("User updated with new session:", updatedUser);
+    console.log('User updated with new session:', updatedUser);
 
     return NextResponse.json({
       sessionId: newSession._id.toString(),
       assignedOn: newSession.assignedOn?.toISOString(),
     });
   } catch (error) {
-    console.error("Errore nella POST /api/sessions:", error);
+    console.error('Errore nella POST /api/sessions:', error);
     return NextResponse.json(
-      { error: "Errore interno del server" },
+      { error: 'Errore interno del server' },
       { status: 500 }
     );
   }
