@@ -1,3 +1,16 @@
+/**
+ * @file        app/debug/exercise/page.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-05-27
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     3.3.4
+ * @brief       Tool per debuggare velocemente un esercizio alla volta
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/app/debug/exercise/page.tsx
+ */
+
 'use client';
 
 import { useState } from 'react';

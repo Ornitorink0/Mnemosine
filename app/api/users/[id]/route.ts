@@ -1,3 +1,16 @@
+/**
+ * @file        app/api/users/[id]/route.ts
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-05-22
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     3.3.4
+ * @brief       Funzioni server-side per gestire un utente
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/app/api/users/%5Bid%5D/route.ts
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 import { connectToDB } from '@/lib/mongodb';
 import UserModel from '@/models/User';

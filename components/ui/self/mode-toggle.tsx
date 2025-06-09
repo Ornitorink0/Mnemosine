@@ -1,3 +1,16 @@
+/**
+ * @file        components/ui/self/mode-toggle.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-05
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     0.1.0
+ * @brief       Bottone per selezionare il tema
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/components/ui/self/mode-toggle.tsx
+ */
+
 'use client';
 
 import * as React from 'react';

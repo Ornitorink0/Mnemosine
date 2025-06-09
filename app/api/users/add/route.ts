@@ -1,3 +1,21 @@
+/**
+ * @file        lib/auth.ts
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-06-08
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     version (see package.json)
+ * @brief       Brief description of the file
+ *
+ * @description Detailed description of the file
+ *
+ * @remarks
+ * Additional notes or technical details
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/lib/auth.ts
+ */
+
 import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 import { connectToDB } from '@/lib/mongodb';
@@ -14,7 +32,7 @@ export async function POST(req: NextRequest) {
     console.log('Body:', body);
 
     console.log("Controllo se l'username esiste...");
-    const existingUser = await User.findOne({ username: body.username });
+    const existingUser = await User.findOne({ name: body.name });
     if (existingUser) {
       console.log('Username già in uso!');
       return NextResponse.json(

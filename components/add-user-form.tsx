@@ -1,3 +1,16 @@
+/**
+ * @file        components/add-user-form.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-07
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     3.3.4
+ * @brief       Form di aggiunta utente
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/components/add-user-form.tsx
+ */
+
 'use client';
 
 import type React from 'react';
@@ -25,7 +38,7 @@ import { addUser } from '@/lib/data';
 export function AddUserForm() {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',
     password: '',
     role: '',
   });
@@ -48,7 +61,7 @@ export function AddUserForm() {
     e.preventDefault();
     try {
       await addUser(
-        formData.username,
+        formData.name,
         formData.password,
         formData.role === 'super'
           ? 'super'
@@ -57,7 +70,7 @@ export function AddUserForm() {
             : 'patient'
       );
       setIsOpen(false);
-      setFormData({ username: '', password: '', role: '' }); // reset
+      setFormData({ name: '', password: '', role: '' }); // reset
     } catch (error) {
       console.error("Errore nell'aggiunta utente:", error);
       // eventualmente mostra un toast qui
@@ -78,11 +91,11 @@ export function AddUserForm() {
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 py-3">
           <div className="space-y-2">
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor="name">Username</Label>
             <Input
-              id="username"
-              name="username"
-              value={formData.username}
+              id="name"
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               required
             />

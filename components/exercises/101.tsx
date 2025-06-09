@@ -1,3 +1,18 @@
+/**
+ * @file        components/exercises/101.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-06-04
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     3.3.4
+ * @brief       [TODO]
+ *
+ * @description [TODO]
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/components/exercises/101.tsx
+ */
+
 'use client';
 
 import { useEffect, useState } from 'react';

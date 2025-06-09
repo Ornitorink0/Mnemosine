@@ -1,3 +1,16 @@
+/**
+ * @file        app/dashboard/manage-users/page.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-07
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     3.3.4
+ * @brief       Pagina per la gestione utenti
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/app/dashboard/manage-users/page.tsx
+ */
+
 'use client';
 
 import { UserTable } from '@/components/user-table';

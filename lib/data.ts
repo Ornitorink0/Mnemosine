@@ -1,3 +1,16 @@
+/**
+ * @file        lib/data.ts
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-07
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     3.3.4
+ * @brief       Interazione server-side con il gestore di utenti
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/lib/data.ts
+ */
+
 'use client';
 
 import { create } from 'zustand';
@@ -40,7 +53,7 @@ export async function fetchUsers() {
 }
 
 export async function addUser(
-  username: string,
+  name: string,
   password: string,
   role: 'super' | 'admin' | 'patient'
 ) {
@@ -48,7 +61,7 @@ export async function addUser(
     const res = await fetch('/api/users/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password, role }),
+      body: JSON.stringify({ name, password, role }),
     });
 
     if (!res.ok) {

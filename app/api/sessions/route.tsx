@@ -1,3 +1,16 @@
+/**
+ * @file        app/api/sessions/route.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-05-26
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     3.3.4
+ * @brief       Funzioni server-side per la gestione di una sessione
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/app/api/sessions/route.tsx
+ */
+
 import connectToDB from '@/lib/mongodb';
 import { NextResponse } from 'next/server';
 import SessionModel from '@/models/Session';

@@ -1,3 +1,16 @@
+/**
+ * @file        app/dashboard/page.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-05
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     0.1.0
+ * @brief       Main della dashboard
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/app/dashboard/page.tsx
+ */
+
 'use client';
 
 import { redirect } from 'next/navigation';
@@ -28,7 +41,7 @@ export default function DashboardPage() {
           <span className="relative inline-block">
             <span className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 -z-10 blur-3xl opacity-75 transform rotate-2 scale-105 dark:opacity-75" />
             <span className="relative dark:text-white text-black font-semibold drop-shadow-lg">
-              {session.user.username}
+              {session.user?.name}
             </span>
           </span>
         </h1>

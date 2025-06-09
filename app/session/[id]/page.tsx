@@ -1,27 +1,34 @@
+/**
+ * @file        app/session/[id]/page.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-05-26
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     3.3.4
+ * @brief       Pagina per creare e gestire sessioni
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/app/session/%5Bid%5D/page.tsx
+ */
+
 import { notFound } from 'next/navigation';
 import connectToDB from '@/lib/mongodb';
 import SessionModel from '@/models/Session';
 import { Types } from 'mongoose';
 import SessionStepperClient from '@/components/SessionStepper';
 
-type SessionPageProps = {
-  params: {
-    id: string;
-  };
-};
+export default async function SessionPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
-/* -------------------------------------------------------------------------- */
-/*               TODO: Implement loading of exercise components               */
-/* -------------------------------------------------------------------------- */
-
-export default async function SessionPage({ params }: SessionPageProps) {
   await connectToDB();
 
-  const sessionId = params.id;
+  if (!Types.ObjectId.isValid(id)) return notFound();
 
-  if (!Types.ObjectId.isValid(sessionId)) return notFound();
-
-  const session = await SessionModel.findById(sessionId).lean();
+  const session = await SessionModel.findById(id).lean();
 
   if (!session) return notFound();
 

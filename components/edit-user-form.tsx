@@ -1,3 +1,16 @@
+/**
+ * @file        components/edit-user-form.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-07
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     3.3.4
+ * @brief       Form di modifica utente
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/components/edit-user-form.tsx
+ */
+
 'use client';
 
 import type React from 'react';
@@ -26,7 +39,7 @@ export function EditUserForm({ user, onSuccess }: EditUserFormProps) {
   console.log('EditUserForm user:', user);
 
   const [formData, setFormData] = useState({
-    username: user.username,
+    name: user.name,
     role: user.role,
     notes: user.notes || '',
   });
@@ -48,7 +61,7 @@ export function EditUserForm({ user, onSuccess }: EditUserFormProps) {
     const updatedUser: User = {
       id: user.id,
       _id: user._id,
-      username: formData.username,
+      name: formData.name,
       password: user.password,
       role: formData.role,
       createdAt: user.createdAt,
@@ -64,11 +77,11 @@ export function EditUserForm({ user, onSuccess }: EditUserFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 py-3">
       <div className="space-y-2">
-        <Label htmlFor="username">Username</Label>
+        <Label htmlFor="name">Username</Label>
         <Input
-          id="username"
-          name="username"
-          value={formData.username}
+          id="name"
+          name="name"
+          value={formData.name}
           onChange={handleChange}
           className="focus-visible:ring-primary"
           required

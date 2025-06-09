@@ -1,5 +1,23 @@
+/**
+ * @file        lib/availableExercises.ts
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-05-22
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     3.3.4
+ * @brief       Lista di esercizi
+ *
+ * @remarks
+ * Per favore, prima di ogni commit aggiorna lo stato dell'esercizio
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/lib/availableExercises.ts
+ */
+
 const availableExercises = [
   {
+    // Posizione: 0
+    // Stato:     In attesa di revisione
     id: 101,
     code: '101',
     name: 'Memorizza la lista di parole',
@@ -8,6 +26,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 1
+    // Stato:     Non fatto
     id: 102,
     code: '102',
     name: 'Trova le coppie',
@@ -16,6 +36,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 2
+    // Stato:     Non fatto
     id: 103,
     code: '103',
     name: 'Span numerico',
@@ -23,6 +45,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 3
+    // Stato:     Non fatto
     id: 104,
     code: '104',
     name: 'Span di lettere',
@@ -30,6 +54,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 4
+    // Stato:     Non fatto
     id: 105,
     code: '105',
     name: "Ricorda l'immagine",
@@ -37,6 +63,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 5
+    // Stato:     Non fatto
     id: 106,
     code: '106',
     name: 'Ricorda il percorso',
@@ -45,6 +73,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 6
+    // Stato:     Non fatto
     id: 107,
     code: '107',
     name: 'Trova la parola mancante',
@@ -53,6 +83,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 7
+    // Stato:     Non fatto
     id: 108,
     code: '108',
     name: 'Span numerico inverso',
@@ -61,6 +93,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 8
+    // Stato:     Non fatto
     id: 109,
     code: '109',
     name: 'Span alfabetico inverso',
@@ -69,6 +103,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 9
+    // Stato:     Non fatto
     id: 110,
     code: '110',
     name: 'Ricorda le città',
@@ -77,6 +113,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 10
+    // Stato:     Non fatto
     id: 201,
     code: '201',
     name: 'Barrage',
@@ -84,6 +122,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 11
+    // Stato:     Non fatto
     id: 202,
     code: '202',
     name: 'Unisci i punti numerici',
@@ -91,6 +131,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 12
+    // Stato:     Non fatto
     id: 203,
     code: '203',
     name: 'Unisci i punti alfanumerici',
@@ -98,6 +140,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 13
+    // Stato:     Non fatto
     id: 204,
     code: '204',
     name: 'Ricerca visiva',
@@ -105,6 +149,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 14
+    // Stato:     Non fatto
     id: 205,
     code: '205',
     name: 'Trova la differenza',
@@ -113,6 +159,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 15
+    // Stato:     Non fatto
     id: 206,
     code: '206',
     name: 'Rilevazione visiva',
@@ -121,6 +169,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 16
+    // Stato:     Non fatto
     id: 207,
     code: '207',
     name: 'Ascolto selettivo',
@@ -129,6 +179,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 17
+    // Stato:     Non fatto
     id: 208,
     code: '208',
     name: 'Attenzione alternata',
@@ -137,6 +189,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 18
+    // Stato:     Non fatto
     id: 209,
     code: '209',
     name: 'Tempi di reazione',
@@ -145,6 +199,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 19
+    // Stato:     Non fatto
     id: 301,
     code: '301',
     name: 'Ordina i numeri in ordine crescente',
@@ -153,6 +209,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 20
+    // Stato:     Non fatto
     id: 302,
     code: '302',
     name: 'Ordina i numeri in ordine decrescente',
@@ -161,6 +219,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 21
+    // Stato:     Non fatto
     id: 303,
     code: '303',
     name: 'Ordina le parole in ordine alfabetico',
@@ -168,6 +228,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 22
+    // Stato:     Non fatto
     id: 304,
     code: '304',
     name: 'Completa la sequenza',
@@ -176,6 +238,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 23
+    // Stato:     Non fatto
     id: 305,
     code: '305',
     name: 'Trova la soluzione',
@@ -184,6 +248,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 24
+    // Stato:     Non fatto
     id: 306,
     code: '306',
     name: 'Domino',
@@ -192,6 +258,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 25
+    // Stato:     Non fatto
     id: 307,
     code: '307',
     name: 'Alternanza di operazioni',
@@ -199,6 +267,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 26
+    // Stato:     Non fatto
     id: 308,
     code: '308',
     name: 'Calcoli veloci',
@@ -206,6 +276,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 27
+    // Stato:     Non fatto
     id: 309,
     code: '309',
     name: 'Cambia la regola',
@@ -214,6 +286,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 28
+    // Stato:     Non fatto
     id: 401,
     code: '401',
     name: 'Anagramma',
@@ -221,6 +295,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 29
+    // Stato:     Non fatto
     id: 402,
     code: '402',
     name: 'Completa la parola ascoltata',
@@ -228,6 +304,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 30
+    // Stato:     Non fatto
     id: 403,
     code: '403',
     name: 'Come si chiama?',
@@ -235,6 +313,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 31
+    // Stato:     Non fatto
     id: 404,
     code: '404',
     name: 'Fluenza semantica',
@@ -242,6 +322,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 32
+    // Stato:     Non fatto
     id: 405,
     code: '405',
     name: 'Fluenza fonemica',
@@ -250,6 +332,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 33
+    // Stato:     Non fatto
     id: 406,
     code: '406',
     name: 'Completa le frasi',
@@ -257,6 +341,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 34
+    // Stato:     Non fatto
     id: 407,
     code: '407',
     name: 'Trova il sinonimo',
@@ -264,6 +350,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 35
+    // Stato:     Non fatto
     id: 408,
     code: '408',
     name: 'Trova il contrario',
@@ -271,6 +359,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 36
+    // Stato:     Non fatto
     id: 409,
     code: '409',
     name: 'Associazione di parole',
@@ -278,6 +368,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 37
+    // Stato:     Non fatto
     id: 410,
     code: '410',
     name: 'Completa il dialogo',
@@ -285,6 +377,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 38
+    // Stato:     Non fatto
     id: '501',
     code: '501',
     name: 'Copia il disegno',
@@ -292,6 +386,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 39
+    // Stato:     Non fatto
     id: '502',
     code: '502',
     name: 'Associa il dettaglio',
@@ -299,6 +395,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 40
+    // Stato:     Non fatto
     id: '503',
     code: '503',
     name: 'Unisci i punti e completa la figura',
@@ -307,6 +405,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 41
+    // Stato:     Non fatto
     id: '504',
     code: '504',
     name: 'Puzzle',
@@ -314,6 +414,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 42
+    // Stato:     Non fatto
     id: '505',
     code: '505',
     name: 'Identifica la forma corretta',
@@ -322,6 +424,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 43
+    // Stato:     Non fatto
     id: '506',
     code: '506',
     name: 'Sequenza di immagini',
@@ -329,6 +433,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 44
+    // Stato:     Non fatto
     id: '507',
     code: '507',
     name: 'Traccia il percorso',
@@ -337,6 +443,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 45
+    // Stato:     Non fatto
     id: '508',
     code: '508',
     name: 'Individua la prospettiva',
@@ -344,6 +452,8 @@ const availableExercises = [
     difficulty: ['easy', 'medium', 'hard'],
   },
   {
+    // Posizione: 46
+    // Stato:     Non fatto
     id: '509',
     code: '509',
     name: 'Riconosci la sagoma',

@@ -1,3 +1,16 @@
+/**
+ * @file        app/layout.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-05
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     0.1.0
+ * @brief       Layout
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/app/layout.tsx
+ */
+
 'use client';
 
 import { Geist, Geist_Mono } from 'next/font/google';

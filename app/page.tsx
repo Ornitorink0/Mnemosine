@@ -1,3 +1,16 @@
+/**
+ * @file        app/page.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-05
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     0.1.0
+ * @brief       Index
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/app/page.tsx
+ */
+
 import { AnimatedGridPattern } from '@/components/magicui/animated-grid-pattern';
 import { cn } from '@/lib/utils';
 

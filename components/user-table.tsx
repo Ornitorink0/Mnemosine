@@ -1,3 +1,16 @@
+/**
+ * @file        components/user-table.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-05
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     0.1.0
+ * @brief       Tabella della dashboard per visualizzare e modificare gli utenti
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/components/user-table.tsx
+ */
+
 import { useEffect, useState } from 'react';
 import {
   type ColumnDef,
@@ -55,7 +68,7 @@ declare module '@tanstack/react-table' {
 export type User = {
   id: string;
   _id: string;
-  username: string;
+  name: string;
   password: string;
   role: 'super' | 'admin' | 'patient';
   createdAt: Date;
@@ -97,7 +110,7 @@ function UserActionsCell({
           </DialogHeader>
           <div className="py-4">
             <p>
-              <strong>Username:</strong> {user.username}
+              <strong>Username:</strong> {user.name}
             </p>
             <p>
               <strong>Ruolo:</strong> {user.role}
@@ -150,7 +163,7 @@ function UserActionsCell({
           </DialogHeader>
           <div className="py-4">
             <p>
-              Sei sicuro di voler eliminare <strong>{user.username}</strong>?
+              Sei sicuro di voler eliminare <strong>{user.name}</strong>?
             </p>
             <p className="text-sm text-muted-foreground mt-2">
               Questa azione non può essere annullata.
@@ -175,7 +188,7 @@ function UserActionsCell({
 
 export const columns: ColumnDef<User>[] = [
   {
-    accessorKey: 'username',
+    accessorKey: 'name',
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -185,7 +198,7 @@ export const columns: ColumnDef<User>[] = [
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-    cell: ({ row }) => <div>{row.getValue('username')}</div>,
+    cell: ({ row }) => <div>{row.getValue('name')}</div>,
   },
   {
     accessorKey: 'role',
@@ -289,11 +302,9 @@ export function UserTable() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-4">
         <Input
           placeholder="Filtra utenti..."
-          value={
-            (table.getColumn('username')?.getFilterValue() as string) ?? ''
-          }
+          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
-            table.getColumn('username')?.setFilterValue(event.target.value)
+            table.getColumn('name')?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

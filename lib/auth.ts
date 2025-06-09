@@ -1,3 +1,16 @@
+/**
+ * @file        lib/auth.ts
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-05
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     0.1.0
+ * @brief       Autentificazione con NextAuth
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/lib/auth.ts
+ */
+
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { connectToDB } from '@/lib/mongodb';
@@ -12,12 +25,12 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { label: 'Username', type: 'text' },
+        name: { label: 'Username', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
         await connectToDB();
-        const user = await User.findOne({ username: credentials?.username });
+        const user = await User.findOne({ name: credentials?.name });
 
         if (!user) {
           console.log('User not found');
@@ -37,7 +50,7 @@ export const authOptions: NextAuthOptions = {
         console.log('User authorized:', user);
         return {
           id: user._id.toString(),
-          username: user.username,
+          name: user.name,
           role: user.role,
           sessionIds: user.sessionIds.map(
             (id: import('mongoose').Types.ObjectId) => id.toString()
@@ -54,21 +67,21 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user?: any }) { // eslint-disable-line
       if (user) {
         token.id = user.id;
-        token.username = user.username;
+        token.name = user.name;
         token.role = user.role;
         token.sessionIds = user.sessionIds;
         token.notes = user.notes;
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: any }) { // eslint-disable-line
       if (token && session.user) {
         session.user.id = token.id;
         session.user.role = token.role;
-        session.user.username = token.username;
+        session.user.name = token.name;
         session.user.sessionIds = token.sessionIds;
         session.user.notes = token.notes;
       }

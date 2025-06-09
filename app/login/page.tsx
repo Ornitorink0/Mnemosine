@@ -1,3 +1,16 @@
+/**
+ * @file        app/login/page.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-05
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     0.1.0
+ * @brief       Form di login
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/app/login/page.tsx
+ */
+
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -21,7 +34,7 @@ import { cn } from '@/lib/utils';
 
 export default function LoginForm() {
   const router = useRouter();
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,9 +42,9 @@ export default function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    console.log('Login attempt with:', { username, password });
+    console.log('Login attempt with:', { name, password });
     const res = await signIn('credentials', {
-      username,
+      name,
       password,
       redirect: false,
       callbackUrl: '/dashboard',
@@ -65,7 +78,7 @@ export default function LoginForm() {
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="username">
+              <Label htmlFor="name">
                 Username{' '}
                 <span className="text-red-500">
                   {error && 'Nome utente o password errati'}
@@ -74,15 +87,15 @@ export default function LoginForm() {
               <div className="relative">
                 <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                 <Input
-                  id="username"
+                  id="name"
                   type="text"
                   placeholder="example"
                   className={cn(
                     'pl-10',
                     error ? 'border-destructive' : 'border-input'
                   )}
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>

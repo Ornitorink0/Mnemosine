@@ -1,3 +1,16 @@
+/**
+ * @file        components/nav-bar.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-05
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     0.1.0
+ * @brief       Barra di navigazione
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/components/nav-bar.tsx
+ */
+
 'use client';
 
 import * as React from 'react';
@@ -223,17 +236,13 @@ export default function NavBar() {
 function useUser(): {
   user:
     | {
-        id: unknown;
-        username: string;
-        role: 'super' | 'admin' | 'patient';
-        createdAt: Date;
-        updatedAt: Date;
-        sessionIds: string[];
-        notes: string;
+        name?: string | null;
+        email?: string | null;
+        [key: string]: unknown;
       }
     | undefined;
   signOut: () => void;
 } {
   const { data: session } = useSession();
-  return { user: session?.user, signOut }; // Restituisci la funzione signOut senza ridefinirla
+  return { user: session?.user, signOut };
 }

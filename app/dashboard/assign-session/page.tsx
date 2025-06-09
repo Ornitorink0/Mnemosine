@@ -1,3 +1,16 @@
+/**
+ * @file        app/dashboard/assign-session/page.tsx
+ * @author      Ornitorink0 <ornitorink0.dev@gmail.com>
+ * @created     2025-04-07
+ * @updated     2025-06-08
+ * @license     MIT
+ * @version     3.3.4
+ * @brief       Pagina per assegnare delle sessioni a uno o più utenti
+ *
+ * @changelog
+ * https://github.com/Ornitorink0/Mnemosine/commits/main/app/dashboard/assign-session/page.tsx
+ */
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -42,7 +55,7 @@ import availableExercises from '@/lib/availableExercises';
 export type User = {
   id: string;
   _id: string;
-  username: string;
+  name: string;
   password: string;
   role: 'super' | 'admin' | 'patient';
   createdAt: Date;
@@ -216,7 +229,7 @@ export default function AssignExercisesPage() {
                   className="w-full justify-between"
                 >
                   {selectedPatient
-                    ? selectedPatient.username
+                    ? selectedPatient.name
                     : 'Seleziona un paziente'}
                 </Button>
               </PopoverTrigger>
@@ -229,8 +242,8 @@ export default function AssignExercisesPage() {
                       <ScrollArea className="h-[200px]">
                         {patients.map((patient, idx) => (
                           <CommandItem
-                            key={`${patient.id ?? patient.username}-${idx}`}
-                            value={patient.username}
+                            key={`${patient.id ?? patient.name}-${idx}`}
+                            value={patient.name}
                             onSelect={() => {
                               setSelectedPatient(patient);
                               setPatientPopoverOpen(false);
@@ -239,7 +252,7 @@ export default function AssignExercisesPage() {
                             {selectedPatient?.id === patient.id && (
                               <Check className="mr-2 h-4 w-4 opacity-100" />
                             )}
-                            {patient.username}
+                            {patient.name}
                           </CommandItem>
                         ))}
                       </ScrollArea>
