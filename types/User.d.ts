@@ -27,17 +27,17 @@ declare module 'next-auth' {
       notes: string;
     };
   }
+}
 
-  // Questa interfaccia rappresenta l'utente nel database
-  interface User {
-    id: string;
-    name: string;
-    role: 'super' | 'admin' | 'patient';
-    createdAt: Date;
-    updatedAt: Date;
-    sessionIds: string[];
-    notes: string;
-  }
+// Questa interfaccia rappresenta l'utente nel database
+export interface User {
+  id: string;
+  name: string;
+  role: 'super' | 'admin' | 'patient';
+  createdAt: Date;
+  updatedAt: Date;
+  sessionIds: string[];
+  notes: string;
 }
 
 // Questa interfaccia viene usata per rappresentare l'utente nel token JWT
