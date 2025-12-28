@@ -16,7 +16,8 @@
     "clear:next": "rm -rf .next",
     "clear:cache": "rm -rf node_modules/.cache",
     "clear:all": "rm -rf .next node_modules",
-    "cli": "tsx scripts/manage-users.ts"
+    "cli": "tsx scripts/manage-users.ts",
+    "prepare": "husky"
   },
   "keywords": [
     "alzheimer",
@@ -95,6 +96,7 @@
     "eslint-config-next": "16.1.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
+    "husky": "^9.1.7",
     "inquirer": "^13.1.0",
     "prettier": "^3.7.4",
     "tailwindcss": "^4.1.18",
