@@ -188,7 +188,7 @@ export default function Home() {
                   </CardContent>
                   <CardFooter>
                     {sess.status === 'pending' ||
-                      sess.status === 'in-progress' ? (
+                    sess.status === 'in-progress' ? (
                       <Link href={`/session/${sess._id}`} className="w-full">
                         <Button className="w-full">
                           {sess.status === 'pending' ? 'Inizia' : 'Continua'}
@@ -200,8 +200,8 @@ export default function Home() {
                         Completata il{' '}
                         {sess.completedOn
                           ? new Date(sess.completedOn).toLocaleDateString(
-                            'it-IT'
-                          )
+                              'it-IT'
+                            )
                           : 'N/A'}
                       </div>
                     ) : (
@@ -316,13 +316,19 @@ export default function Home() {
                   className="border-0 shadow-md hover:shadow-lg transition-all hover:scale-105 bg-gradient-to-br from-background to-muted/50"
                 >
                   <CardHeader>
-                    <div className={cn('text-4xl mb-4 p-3 rounded-lg w-fit bg-primary/10')}>
+                    <div
+                      className={cn(
+                        'text-4xl mb-4 p-3 rounded-lg w-fit bg-primary/10'
+                      )}
+                    >
                       <Icon className={cn('h-8 w-8', feature.color)} />
                     </div>
                     <CardTitle className="text-xl">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">{feature.description}</p>
+                    <p className="text-muted-foreground">
+                      {feature.description}
+                    </p>
                   </CardContent>
                 </Card>
               );
@@ -346,7 +352,7 @@ export default function Home() {
                 icon: CheckCircle,
                 title: 'Basato su Ricerca',
                 description:
-                  'Esercizi sviluppati in base alle pratiche cliniche per l\'identificazione precoce di declino cognitivo.',
+                  "Esercizi sviluppati in base alle pratiche cliniche per l'identificazione precoce di declino cognitivo.",
                 color: 'text-green-500',
               },
               {
@@ -404,13 +410,20 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/login">
-              <Button size="lg" className="px-8 transform hover:scale-105 transition-transform">
+              <Button
+                size="lg"
+                className="px-8 transform hover:scale-105 transition-transform"
+              >
                 Accedi Ora
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
             <Link href="/contatti">
-              <Button size="lg" variant="outline" className="px-8 transform hover:scale-105 transition-transform">
+              <Button
+                size="lg"
+                variant="outline"
+                className="px-8 transform hover:scale-105 transition-transform"
+              >
                 Contattaci 💬
               </Button>
             </Link>
