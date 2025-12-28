@@ -12,8 +12,7 @@ import {
 
 import { cn } from '@/lib/utils';
 
-export interface AnimatedGridPatternProps
-  extends ComponentPropsWithoutRef<'svg'> {
+export interface AnimatedGridPatternProps extends ComponentPropsWithoutRef<'svg'> {
   width?: number;
   height?: number;
   x?: number;
@@ -41,7 +40,6 @@ export function AnimatedGridPattern({
   const id = useId();
   const containerRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const [squares, setSquares] = useState(() => generateSquares(numSquares));
 
   const getPos = useCallback(() => {
     return [
@@ -51,12 +49,17 @@ export function AnimatedGridPattern({
   }, [dimensions.width, dimensions.height, width, height]);
 
   // Adjust the generateSquares function to return objects with an id, x, and y
-  const generateSquares = useCallback((count: number) => {
-    return Array.from({ length: count }, (_, i) => ({
-      id: i,
-      pos: getPos(),
-    }));
-  }, [getPos]);
+  const generateSquares = useCallback(
+    (count: number) => {
+      return Array.from({ length: count }, (_, i) => ({
+        id: i,
+        pos: getPos(),
+      }));
+    },
+    [getPos]
+  );
+
+  const [squares, setSquares] = useState<{ id: number; pos: number[] }[]>([]);
 
   // Function to update a single square's position
   const updateSquarePosition = (id: number) => {

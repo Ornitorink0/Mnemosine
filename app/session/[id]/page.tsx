@@ -1,23 +1,20 @@
-import { notFound } from "next/navigation";
-import connectToDB from "@/lib/mongodb";
-import SessionModel from "@/models/Session";
-import { Types } from "mongoose";
-import SessionStepperClient from "@/components/SessionStepper";
+import { notFound } from 'next/navigation';
+import connectToDB from '@/lib/mongodb';
+import SessionModel from '@/models/Session';
+import { Types } from 'mongoose';
+import SessionStepperClient from '@/components/SessionStepper';
+import type { ExerciseDifficulty } from '@/types';
 
 type SessionPageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
-
-/* -------------------------------------------------------------------------- */
-/*               TODO: Implement loading of exercise components               */
-/* -------------------------------------------------------------------------- */
 
 export default async function SessionPage({ params }: SessionPageProps) {
   await connectToDB();
 
-  const sessionId = params.id;
+  const { id: sessionId } = await params;
 
   if (!Types.ObjectId.isValid(sessionId)) return notFound();
 
@@ -27,6 +24,7 @@ export default async function SessionPage({ params }: SessionPageProps) {
 
   type Exercise = {
     exerciseId?: string | null;
+    difficulty?: ExerciseDifficulty | null;
     description?: string | null;
     timeSpent?: number | null;
     nErrors?: number | null;
@@ -34,11 +32,12 @@ export default async function SessionPage({ params }: SessionPageProps) {
 
   const exercises =
     session.exercises?.map((ex: Exercise) => ({
-      exerciseId: ex.exerciseId ?? "",
-      description: ex.description ?? "",
+      exerciseId: ex.exerciseId ?? '',
+      difficulty: (ex.difficulty ?? 'easy') as ExerciseDifficulty,
+      description: ex.description ?? '',
       timeSpent: ex.timeSpent ?? 0,
       nErrors: ex.nErrors ?? 0,
     })) ?? [];
 
-  return <SessionStepperClient exercises={exercises} />;
+  return <SessionStepperClient sessionId={sessionId} exercises={exercises} />;
 }

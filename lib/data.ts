@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { create } from "zustand";
-import { User } from "@/components/user-table";
+import { create } from 'zustand';
+import { User } from '@/components/user-table';
 
 interface UserStore {
   users: User[];
@@ -29,30 +29,30 @@ export const useUserStore = create<UserStore>((set) => ({
 
 export async function fetchUsers() {
   try {
-    const res = await fetch("/api/users");
-    if (!res.ok) throw new Error("Errore nel recupero utenti");
+    const res = await fetch('/api/users');
+    if (!res.ok) throw new Error('Errore nel recupero utenti');
     const data: User[] = await res.json();
     useUserStore.getState().setUsers(data);
   } catch (err) {
-    console.error("Errore fetchUsers:", err);
-    alert("Errore durante il caricamento utenti");
+    console.error('Errore fetchUsers:', err);
+    alert('Errore durante il caricamento utenti');
   }
 }
 
 export async function addUser(
   username: string,
   password: string,
-  role: "super" | "admin" | "patient"
+  role: 'super' | 'admin' | 'patient'
 ) {
   try {
-    const res = await fetch("/api/users/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch('/api/users/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password, role }),
     });
 
     if (!res.ok) {
-      alert("Username già in uso");
+      alert('Username già in uso');
       return;
     }
 
@@ -60,17 +60,24 @@ export async function addUser(
     useUserStore.getState().addUser(newUser);
     return newUser;
   } catch (err) {
-    console.error("Errore addUser:", err);
+    console.error('Errore addUser:', err);
     alert("Errore nell'aggiunta utente");
   }
 }
 
 export async function updateUser(updatedUser: User) {
   try {
+    // Invia solo i campi modificabili
+    const payload = {
+      username: updatedUser.username,
+      role: updatedUser.role,
+      notes: updatedUser.notes,
+    };
+
     const res = await fetch(`/api/users/${updatedUser._id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedUser),
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
     });
 
     if (!res.ok) throw new Error(`Failed to update user: ${res.statusText}`);
@@ -79,8 +86,8 @@ export async function updateUser(updatedUser: User) {
     useUserStore.getState().updateUser(updated);
     return updated;
   } catch (err) {
-    console.error("Errore updateUser:", err);
-    alert("Errore aggiornamento utente");
+    console.error('Errore updateUser:', err);
+    alert('Errore aggiornamento utente');
     throw err;
   }
 }
@@ -88,14 +95,14 @@ export async function updateUser(updatedUser: User) {
 export async function deleteUser(id: string) {
   try {
     const res = await fetch(`/api/users/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
     });
 
-    if (!res.ok) throw new Error("Errore nella cancellazione dell’utente");
+    if (!res.ok) throw new Error('Errore nella cancellazione dell’utente');
 
     useUserStore.getState().deleteUser(id);
   } catch (err) {
-    console.error("Errore deleteUser:", err);
-    alert("Errore durante la cancellazione utente");
+    console.error('Errore deleteUser:', err);
+    alert('Errore durante la cancellazione utente');
   }
 }

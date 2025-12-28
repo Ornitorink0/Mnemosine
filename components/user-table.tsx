@@ -195,10 +195,10 @@ export const columns: ColumnDef<User>[] = [
         {row.getValue('role') === 'super'
           ? 'Super utente'
           : row.getValue('role') === 'admin'
-          ? 'Amministratore'
-          : row.getValue('role') === 'patient'
-          ? 'Paziente'
-          : 'N/A'}
+            ? 'Amministratore'
+            : row.getValue('role') === 'patient'
+              ? 'Paziente'
+              : 'N/A'}
       </Badge>
     ),
   },

@@ -1,44 +1,44 @@
-import bcrypt from "bcrypt";
-import { NextRequest, NextResponse } from "next/server";
-import { connectToDB } from "@/lib/mongodb";
-import User from "@/models/User";
+import bcrypt from 'bcryptjs';
+import { NextRequest, NextResponse } from 'next/server';
+import { connectToDB } from '@/lib/mongodb';
+import User from '@/models/User';
 
 export async function POST(req: NextRequest) {
-  console.log("POST /api/users/add");
+  console.log('POST /api/users/add');
   try {
-    console.log("Connessione al database...");
+    console.log('Connessione al database...');
     await connectToDB();
-    console.log("Connesso!");
+    console.log('Connesso!');
 
     const body = await req.json();
-    console.log("Body:", body);
+    console.log('Body:', body);
 
     console.log("Controllo se l'username esiste...");
     const existingUser = await User.findOne({ username: body.username });
     if (existingUser) {
-      console.log("Username già in uso!");
+      console.log('Username già in uso!');
       return NextResponse.json(
-        { error: "Username già in uso" },
+        { error: 'Username già in uso' },
         { status: 400 }
       );
     }
 
-    console.log("Hash della password...");
+    console.log('Hash della password...');
     const hashedPassword = await bcrypt.hash(body.password, 10);
-    console.log("Hashata!");
+    console.log('Hashata!');
     body.password = hashedPassword;
 
-    console.log("Creazione nuovo utente...");
+    console.log('Creazione nuovo utente...');
     const newUser = new User(body);
     await newUser.save();
-    console.log("Creato!");
+    console.log('Creato!');
 
     return NextResponse.json(
-      { message: "Utente creato", user: newUser },
+      { message: 'Utente creato', user: newUser },
       { status: 201 }
     );
   } catch (error) {
-    console.error("Errore nella creazione utente:", error);
-    return NextResponse.json({ error: "Errore server" }, { status: 500 });
+    console.error('Errore nella creazione utente:', error);
+    return NextResponse.json({ error: 'Errore server' }, { status: 500 });
   }
 }

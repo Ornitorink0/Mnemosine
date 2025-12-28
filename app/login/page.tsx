@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { User, Lock } from "lucide-react";
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { signIn, useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import { User, Lock } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -14,30 +14,30 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 
 export default function LoginForm() {
   const router = useRouter();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    console.log("Login attempt with:", { username, password });
-    const res = await signIn("credentials", {
+    console.log('Login attempt with:', { username, password });
+    const res = await signIn('credentials', {
       username,
       password,
       redirect: false,
-      callbackUrl: "/dashboard",
+      callbackUrl: '/dashboard',
     });
     if (res?.ok) {
-      router.push("/dashboard");
+      router.push('/dashboard');
     } else {
       setError(true);
       setIsSubmitting(false);
@@ -48,7 +48,7 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (session) {
-      router.push("/dashboard");
+      router.push('/dashboard');
     }
   }, [session, router]);
 
@@ -66,9 +66,9 @@ export default function LoginForm() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="username">
-                Username{" "}
+                Username{' '}
                 <span className="text-red-500">
-                  {error && "Nome utente o password errati"}
+                  {error && 'Nome utente o password errati'}
                 </span>
               </Label>
               <div className="relative">
@@ -78,8 +78,8 @@ export default function LoginForm() {
                   type="text"
                   placeholder="example"
                   className={cn(
-                    "pl-10",
-                    error ? "border-destructive" : "border-input"
+                    'pl-10',
+                    error ? 'border-destructive' : 'border-input'
                   )}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -104,8 +104,8 @@ export default function LoginForm() {
                   type="password"
                   placeholder="••••••••"
                   className={cn(
-                    "pl-10",
-                    error ? "border-destructive" : "border-input"
+                    'pl-10',
+                    error ? 'border-destructive' : 'border-input'
                   )}
                   value={password}
                   onChange={(e) => {
@@ -123,7 +123,7 @@ export default function LoginForm() {
               className="w-full mt-4"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Caricamento..." : "Accedi"}
+              {isSubmitting ? 'Caricamento...' : 'Accedi'}
             </Button>
           </CardFooter>
         </form>

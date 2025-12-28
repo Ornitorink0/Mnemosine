@@ -136,11 +136,13 @@ export default function NavBar() {
           <div className="hidden md:flex md:gap-2">
             {user ? (
               <>
-                <Link href="/dashboard" key={String(user.id)}>
-                  <Button variant="secondary" size="sm" className="px-4">
-                    Dashboard
-                  </Button>
-                </Link>
+                {(user.role === 'super' || user.role === 'admin') && (
+                  <Link href="/dashboard" key={String(user.id)}>
+                    <Button variant="secondary" size="sm" className="px-4">
+                      Dashboard
+                    </Button>
+                  </Link>
+                )}
                 <Button size="sm" className="px-4" onClick={() => signOut()}>
                   Logout
                 </Button>
@@ -223,11 +225,9 @@ export default function NavBar() {
 function useUser(): {
   user:
     | {
-        id: unknown;
+        id: string;
         username: string;
         role: 'super' | 'admin' | 'patient';
-        createdAt: Date;
-        updatedAt: Date;
         sessionIds: string[];
         notes: string;
       }

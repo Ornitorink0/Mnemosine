@@ -19,23 +19,26 @@ La web app prevede un sistema di login protetto, inizialmente basato su Auth0 e 
 
 Per avviare lo sviluppo di questo progetto, è necessario seguire alcuni passaggi fondamentali. Il progetto è organizzato in modo da facilitare la collaborazione e la gestione del codice, utilizzando le migliori pratiche di sviluppo web.
 
-Il progetto include un file `.gitignore`, che impedisce di aggiungere file non necessari al repository, mantenendo il progetto snello e facile da gestire. Per lavorare su questo progetto, è sufficiente utilizzare un IDE (Ambiente di Sviluppo Integrato) come `Visual Studio Code` (altamente consigliato) o `Atom`.
+Per lavorare su questo progetto, è sufficiente utilizzare un IDE (Ambiente di Sviluppo Integrato) come `Visual Studio Code` (altamente consigliato) o `Atom`.
+
+> Il progetto include un file `.gitignore`, che impedisce di aggiungere file non necessari al repository, incluso `.env`, mantenendo il progetto snello e facile da gestire.
 
 ### Prerequisiti
 
 Prima di iniziare, assicurati che sul tuo computer siano installati i seguenti strumenti:
 
 1. [Node.js](https://nodejs.org) (versione LTS consigliata)
-2. [npm](https://www.npmjs.com) (il gestore di pacchetti di Node.js)
-
-È altamente consigliato, inoltre, avere [Git](https://git-scm.com) per sincronizzare facilmente il progetto con il repository remoto su GitHub.
+2. [pnpm](https://www.npmjs.com) (il gestore di pacchetti di Node.js)
+3. [Git](https://git-scm.com) per sincronizzare il progetto con il repository remoto su GitHub.
 
 ### Clonare il Progetto
 
 Per scaricare il progetto sul tuo computer, apri il terminale e esegui il seguente comando:
 
 ```bash
-git https://github.com/Ornitorink0/MnemosineFE.git
+git https://github.com/Ornitorink0/Mnemosine.git
+# oppure
+gh repo clone Ornitorink0/Mnemosine
 ```
 
 Successivamente, entra nella cartella del progetto:
@@ -44,12 +47,16 @@ Successivamente, entra nella cartella del progetto:
 cd MnemosineFE
 ```
 
+### Configurare .env
+
+Per configurare il file `.env`, copia il file `.env.example` nella cartella del progetto e modificalo secondo le esigenze del progetto.
+
 ### Installare le Dipendenze
 
 Una volta scaricato il progetto, esegui il comando seguente per installare tutte le dipendenze necessarie:
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### Avviare il Server di Sviluppo
@@ -57,7 +64,7 @@ npm install
 Per avviare l'applicazione in modalità sviluppo, esegui:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Il server di sviluppo sarà avviato e l'applicazione sarà accessibile all'indirizzo: [http://localhost:3000](http://localhost:3000).
@@ -89,10 +96,12 @@ Questa organizzazione facilita la manutenzione e la scalabilità del progetto.
 Per creare una versione ottimizzata del progetto per la produzione, esegui:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 I file compilati saranno salvati nella cartella `dist/`.
+
+> Non è necessario eseguire questo passaggio per il progetto in sviluppo, in quanto il provider di hosting si occupa di compilarlo automaticamente, ma è utile per eseguire test di compilazione.
 
 ## Linee Guida per gli Asset
 
@@ -103,25 +112,28 @@ I file compilati saranno salvati nella cartella `dist/`.
 
 ### Configurazioni Aggiuntive
 
-- **Formattazione**: Per formattare automaticamente il codice, puoi utilizzare lo shortcut di `Ctrl+Shift+F` (Windows), `Cmd+Shift+F` (macOS) o `Ctrl+Shift+I` (Linux). È richiesto un codice pulito e leggibile.
-- **Linting**: Utilizza `ESLint` per mantenere il codice conforme agli standard di qualità. Puoi eseguire il linting con il comando: `npm run lint`.
+- **Formattazione**: Per formattare automaticamente il codice, puoi utilizzare lo shortcut di `Ctrl+Shift+F` (Windows), `Cmd+Shift+F` (macOS) o `Ctrl+Shift+I` (Linux). È richiesto un codice pulito e leggibile. Puoi eseguire la formattazione dell'intero progetto con il comando: `pnpm format`.
+- **Linting**: Utilizza `ESLint` per mantenere il codice conforme agli standard di qualità. Puoi eseguire il linting con il comando: `pnpm lint`.
 
 ## Licenza
 
 Questo progetto è concesso in licenza sotto la Licenza MIT. Puoi utilizzare, modificare e distribuire il codice, a condizione che venga mantenuto il copyright e la dichiarazione di licenza nelle copie del software o nelle versioni modificate.
 
+Consulta [LICENSE](LICENSE.txt) per maggiori informazioni.
+
 ## Contribuire
 
 Questo progetto è aperto ai membri **SobreWeb dell'IS A. Sobrero di Casale Monferrato (AL)**, in collaborazione con il **Dipartimento di neuroscienze dell'Università di Torino (UNITO)**.
 
-> Per favore, assicurati di seguire le linee guida di codifica del progetto e di rispettare sempre il codice etico e le linee guida interne della scuola.
+> Per favore, assicurati di seguire le linee guida di codifica del progetto e di rispettare sempre il codice etico e le linee guida interne al team.
 
 ### Linee guida per il Contributo
 
 - Segui le convenzioni di codifica del progetto.
 - Assicurati che il codice sia ben documentato e comprensibile.
-- Prima di fare una pull request, assicurati che tutte le modifiche siano testate e funzionanti.
-- Rispetta sempre il codice etico e le linee guida interne della scuola.
+- Prima di fare una pull request, assicurati di formattare e di lintare il codice. Inoltre, assicurati che tutte le modifiche siano testate e funzionanti.
+
+> ! È necessario che un altro membro del gruppo SobreWeb verifichi le exploits e vulnerabilità nel codice prima di pubblicare una pull request (verifica assegnazioni delle pull).
 
 Se non fai parte del gruppo SobreWeb, puoi comunque contribuire al progetto con idee, suggerimenti o miglioramenti al codice front-end. Tuttavia, non è consentito modificare dati, contatti o informazioni sensibili relativi al gruppo o all’istituto. L’accesso al database è riservato esclusivamente ai membri autorizzati: i collaboratori esterni potranno interagire solo con la parte front-end dell’applicazione.
 

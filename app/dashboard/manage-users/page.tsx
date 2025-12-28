@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { UserTable } from "@/components/user-table";
-import { AddUserForm } from "@/components/add-user-form";
-import { Users } from "lucide-react";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { UserTable } from '@/components/user-table';
+import { AddUserForm } from '@/components/add-user-form';
+import { Users } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 export default function Page() {
   const { data: session, status } = useSession();
-  console.log("DashboardPage", { session, status });
+  console.log('DashboardPage', { session, status });
   if (!session) {
-    redirect("/login");
+    redirect('/login');
   }
   return (
     <div className="container mx-auto py-6 px-4 md:py-10 md:px-6">
