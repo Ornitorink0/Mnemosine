@@ -3,9 +3,9 @@
   "installCommand": "pnpm install",
   "framework": "nextjs",
   "env": {
-    "NEXTAUTH_URL": "@mnemosine_nextauth_url",
-    "NEXTAUTH_SECRET": "@mnemosine_nextauth_secret",
-    "MONGODB_URI": "@mnemosine_mongodb_uri"
+    "NEXTAUTH_URL": "@nextauth_url",
+    "NEXTAUTH_SECRET": "@nextauth_secret",
+    "MONGODB_URI": "@mongodb_uri"
   },
   "redirects": [
     {
