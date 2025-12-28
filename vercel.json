@@ -2,7 +2,6 @@
   "buildCommand": "pnpm build",
   "installCommand": "pnpm install",
   "framework": "nextjs",
-  "nodeVersion": "20.x",
   "env": {
     "NEXTAUTH_URL": "@mnemosine_nextauth_url",
     "NEXTAUTH_SECRET": "@mnemosine_nextauth_secret",
