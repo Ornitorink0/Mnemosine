@@ -11,8 +11,8 @@ export default function ContattiPage() {
         <div className="max-w-4xl mx-auto mb-12">
           <h1 className="text-5xl font-bold mb-6">Contatti</h1>
           <p className="text-xl text-muted-foreground">
-            Hai domande o hai bisogno di assistenza? Ti preghiamo di contattarci.
-            Il nostro team è a tua disposizione.
+            Hai domande o hai bisogno di assistenza? Ti preghiamo di
+            contattarci. Il nostro team è a tua disposizione.
           </p>
         </div>
 
@@ -63,7 +63,8 @@ export default function ContattiPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Via della Patata, 123<br />
+                  Via della Patata, 123
+                  <br />
                   00000 Torino, Italia
                 </p>
               </CardContent>

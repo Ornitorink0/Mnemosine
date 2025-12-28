@@ -20,8 +20,8 @@ export default function TermsPage() {
               <CardContent className="space-y-4 text-muted-foreground">
                 <p>
                   Accedendo e utilizzando la piattaforma Mnemosine, accetti di
-                  essere vincolato da questi Termini e Condizioni. Se non accetti
-                  questi termini, non utilizzare il Servizio.
+                  essere vincolato da questi Termini e Condizioni. Se non
+                  accetti questi termini, non utilizzare il Servizio.
                 </p>
               </CardContent>
             </Card>
@@ -52,9 +52,9 @@ export default function TermsPage() {
               <CardContent className="space-y-4 text-muted-foreground">
                 <p>
                   Sei responsabile di mantenere la confidenzialità delle tue
-                  credenziali di accesso e di tutte le attività che si verificano
-                  con il tuo account. Devi avvisarci immediatamente di qualsiasi
-                  uso non autorizzato del tuo account.
+                  credenziali di accesso e di tutte le attività che si
+                  verificano con il tuo account. Devi avvisarci immediatamente
+                  di qualsiasi uso non autorizzato del tuo account.
                 </p>
               </CardContent>
             </Card>
@@ -66,8 +66,9 @@ export default function TermsPage() {
               <CardContent className="space-y-4 text-muted-foreground">
                 <p>
                   Mnemosine è fornito "così com'è" senza garanzie di alcun tipo.
-                  Non siamo responsabili per danni diretti, indiretti, incidentali,
-                  speciali o consequenziali derivanti dall'uso della piattaforma.
+                  Non siamo responsabili per danni diretti, indiretti,
+                  incidentali, speciali o consequenziali derivanti dall'uso
+                  della piattaforma.
                 </p>
               </CardContent>
             </Card>
@@ -127,8 +128,8 @@ export default function TermsPage() {
               <CardContent className="space-y-4 text-muted-foreground">
                 <p>
                   Potremmo modificare questi Termini in qualsiasi momento.
-                  Continuerai a essere vincolato da tali modifiche utilizzando il
-                  Servizio dopo la pubblicazione di tali modifiche.
+                  Continuerai a essere vincolato da tali modifiche utilizzando
+                  il Servizio dopo la pubblicazione di tali modifiche.
                 </p>
               </CardContent>
             </Card>
@@ -169,7 +170,10 @@ export default function TermsPage() {
                 </p>
                 <p>
                   Email:{' '}
-                  <a href="mailto:legal@mnemosine.com" className="hover:underline">
+                  <a
+                    href="mailto:legal@mnemosine.com"
+                    className="hover:underline"
+                  >
                     legal@mnemosine.com
                   </a>
                 </p>

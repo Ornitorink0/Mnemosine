@@ -26,17 +26,18 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                Mnemosine nasce da una profonda passione per l'informatica e dalla
-                volontà di creare un impatto reale nella società. Sappiamo che
-                l'Alzheimer è una malattia neurodegenerativa diffusa: vogliamo
-                mettere le nostre competenze a servizio di un problema così
-                importante.
+                Mnemosine nasce da una profonda passione per l'informatica e
+                dalla volontà di creare un impatto reale nella società. Sappiamo
+                che l'Alzheimer è una malattia neurodegenerativa diffusa:
+                vogliamo mettere le nostre competenze a servizio di un problema
+                così importante.
               </p>
               <p>
                 Forniamo ai professionisti sanitari uno strumento diagnostico
-                affidabile, intuitivo e scientificamente valido per l'identificazione
-                precoce dei disturbi cognitivi, migliorando gli esiti clinici e la
-                qualità della vita dei pazienti e delle loro famiglie.
+                affidabile, intuitivo e scientificamente valido per
+                l'identificazione precoce dei disturbi cognitivi, migliorando
+                gli esiti clinici e la qualità della vita dei pazienti e delle
+                loro famiglie.
               </p>
             </CardContent>
           </Card>
@@ -63,7 +64,7 @@ export default function AboutPage() {
                 icon: Users,
                 title: 'Dashboard Medica',
                 description:
-                  'I professionisti sanitari possono analizzare l\'andamento dei pazienti nel tempo tramite una dashboard riservata.',
+                  "I professionisti sanitari possono analizzare l'andamento dei pazienti nel tempo tramite una dashboard riservata.",
               },
               {
                 icon: Award,
@@ -80,7 +81,9 @@ export default function AboutPage() {
                     <CardTitle className="text-lg">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">{feature.description}</p>
+                    <p className="text-muted-foreground">
+                      {feature.description}
+                    </p>
                   </CardContent>
                 </Card>
               );
@@ -99,15 +102,16 @@ export default function AboutPage() {
               <CardContent className="space-y-4 text-muted-foreground">
                 <p>
                   Mnemosine è frutto di mesi di lavoro, sperimentazione e
-                  collaborazione. Il progetto è nato su richiesta di un professore,
-                  in collaborazione con il Dipartimento di Neuroscienze e una
-                  neurologa che ha ideato gli esercizi clinici.
+                  collaborazione. Il progetto è nato su richiesta di un
+                  professore, in collaborazione con il Dipartimento di
+                  Neuroscienze e una neurologa che ha ideato gli esercizi
+                  clinici.
                 </p>
                 <p>
-                  Inizialmente eravamo convinti che avrebbe avuto breve durata, visti
-                  gli insuccessi dei prototipi precedenti. Tuttavia, grazie
-                  all'impegno costante e alla dedizione, siamo riusciti a portare a
-                  termine lo sviluppo del prodotto.
+                  Inizialmente eravamo convinti che avrebbe avuto breve durata,
+                  visti gli insuccessi dei prototipi precedenti. Tuttavia,
+                  grazie all'impegno costante e alla dedizione, siamo riusciti a
+                  portare a termine lo sviluppo del prodotto.
                 </p>
               </CardContent>
             </Card>
@@ -122,8 +126,8 @@ export default function AboutPage() {
                     Versione 1 - Il Prototipo
                   </h4>
                   <p>
-                    Rappresenta la fondazione del progetto
-                    con i primi esercizi e il sistema di raccolta dati.
+                    Rappresenta la fondazione del progetto con i primi esercizi
+                    e il sistema di raccolta dati.
                   </p>
                 </div>
                 <div>
@@ -131,8 +135,9 @@ export default function AboutPage() {
                     Versione 2 - Il Redesign UI/UX
                   </h4>
                   <p>
-                    Riprogettazione completa dell'interfaccia con un design moderno,
-                    accessibile e conforme alle linee guida per applicazioni sanitarie.
+                    Riprogettazione completa dell'interfaccia con un design
+                    moderno, accessibile e conforme alle linee guida per
+                    applicazioni sanitarie.
                   </p>
                 </div>
                 <div>
@@ -140,8 +145,8 @@ export default function AboutPage() {
                     Versione 3 - La Modernizzazione
                   </h4>
                   <p>
-                    Una vera e propria rivoluzione che migliora
-                    manutenibilità, performance e user experience.
+                    Una vera e propria rivoluzione che migliora manutenibilità,
+                    performance e user experience.
                   </p>
                 </div>
               </CardContent>
@@ -154,13 +159,13 @@ export default function AboutPage() {
               <CardContent className="space-y-4 text-muted-foreground">
                 <p>
                   Mnemosine è stato presentato in conferenze scolastiche e
-                  cittadine, ricevendo riscontri positivi da pubblico, professionisti
-                  del settore sanitario e informatico.
+                  cittadine, ricevendo riscontri positivi da pubblico,
+                  professionisti del settore sanitario e informatico.
                 </p>
                 <p>
-                  Questo lavoro ha ottenuto il riconoscimento ufficiale con borse di
-                  di studio, assegnate come premio per l'impegno, l'originalità e il valore
-                  sociale del progetto.
+                  Questo lavoro ha ottenuto il riconoscimento ufficiale con
+                  borse di di studio, assegnate come premio per l'impegno,
+                  l'originalità e il valore sociale del progetto.
                 </p>
               </CardContent>
             </Card>
@@ -179,14 +184,15 @@ export default function AboutPage() {
               </p>
               <p>
                 Lavoriamo insieme ad una neurologa che ha ideato gli esercizi
-                clinici, garantendo valore scientifico e rilevanza
-                medica di ogni componente della piattaforma.
+                clinici, garantendo valore scientifico e rilevanza medica di
+                ogni componente della piattaforma.
               </p>
               <p className="pt-4 border-t">
-                <strong>Visione:</strong> Mnemosine non è solo codice, ma un mezzo per
-                aiutare le persone. Crediamo che l'informatica debba essere messa al
-                servizio della società, e siamo orgogliosi che il nostro software
-                possa fare una reale differenza nella vita dei pazienti.
+                <strong>Visione:</strong> Mnemosine non è solo codice, ma un
+                mezzo per aiutare le persone. Crediamo che l'informatica debba
+                essere messa al servizio della società, e siamo orgogliosi che
+                il nostro software possa fare una reale differenza nella vita
+                dei pazienti.
               </p>
             </CardContent>
           </Card>

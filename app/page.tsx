@@ -185,7 +185,7 @@ export default function Home() {
                   </CardContent>
                   <CardFooter>
                     {sess.status === 'pending' ||
-                      sess.status === 'in-progress' ? (
+                    sess.status === 'in-progress' ? (
                       <Link href={`/session/${sess._id}`} className="w-full">
                         <Button className="w-full">
                           {sess.status === 'pending' ? 'Inizia' : 'Continua'}
@@ -197,8 +197,8 @@ export default function Home() {
                         Completata il{' '}
                         {sess.completedOn
                           ? new Date(sess.completedOn).toLocaleDateString(
-                            'it-IT'
-                          )
+                              'it-IT'
+                            )
                           : 'N/A'}
                       </div>
                     ) : (
@@ -238,7 +238,8 @@ export default function Home() {
             </span>
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mb-8">
-            Esercizi cognitivi interattivi per la diagnosi precoce dell'Alzheimer
+            Esercizi cognitivi interattivi per la diagnosi precoce
+            dell'Alzheimer
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/login">
@@ -247,12 +248,18 @@ export default function Home() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
-            <Button size="lg" variant="link" className="px-8" onClick={() => {
-              const featuresSection = document.querySelector('#features-section');
-              if (featuresSection) {
-                featuresSection.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}>
+            <Button
+              size="lg"
+              variant="link"
+              className="px-8"
+              onClick={() => {
+                const featuresSection =
+                  document.querySelector('#features-section');
+                if (featuresSection) {
+                  featuresSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
               Scopri di più
               <ArrowDown />
             </Button>
@@ -261,7 +268,10 @@ export default function Home() {
       </div>
 
       {/* Features Section */}
-      <section id="features-section" className="bg-muted/50 py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+      <section
+        id="features-section"
+        className="bg-muted/50 py-16 md:py-24 px-4 sm:px-6 lg:px-8"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
@@ -345,8 +355,8 @@ export default function Home() {
                 Dati Sicuri
               </h3>
               <p className="text-muted-foreground">
-                I dati dei pazienti sono protetti con standard
-                di sicurezza e privacy.
+                I dati dei pazienti sono protetti con standard di sicurezza e
+                privacy.
               </p>
             </div>
 

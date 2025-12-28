@@ -24,9 +24,9 @@ export default function PrivacyPolicyPage() {
                 </p>
                 <p>
                   Questa pagina ti informa delle nostre politiche in materia di
-                  raccolta, utilizzo e divulgazione dei dati personali quando usi
-                  il nostro Servizio e delle scelte che hai a proposito di tali
-                  dati.
+                  raccolta, utilizzo e divulgazione dei dati personali quando
+                  usi il nostro Servizio e delle scelte che hai a proposito di
+                  tali dati.
                 </p>
               </CardContent>
             </Card>
@@ -37,19 +37,34 @@ export default function PrivacyPolicyPage() {
               </CardHeader>
               <CardContent className="space-y-4 text-muted-foreground">
                 <p>
-                  Raccogliamo diversi tipi di informazioni per vari scopi al fine
-                  di fornirvi e migliorare il nostro Servizio.
+                  Raccogliamo diversi tipi di informazioni per vari scopi al
+                  fine di fornirvi e migliorare il nostro Servizio.
                 </p>
                 <div>
                   <h4 className="font-semibold text-foreground mb-2">
                     Tipi di dati raccolti:
                   </h4>
                   <ul className="list-disc list-inside space-y-2">
-                    <li>Dati di contatto (nome, indirizzo email, numero di telefono)</li>
-                    <li>Dati di profilo (ruolo professionale, specializzazione medica)</li>
-                    <li>Dati di utilizzo (pagine visitate, funzioni utilizzate, orari di accesso)</li>
-                    <li>Dati sanitari (risultati dei test cognitivi) - trattati con massima confidenzialità</li>
-                    <li>Dati tecnici (indirizzo IP, tipo di browser, sistema operativo)</li>
+                    <li>
+                      Dati di contatto (nome, indirizzo email, numero di
+                      telefono)
+                    </li>
+                    <li>
+                      Dati di profilo (ruolo professionale, specializzazione
+                      medica)
+                    </li>
+                    <li>
+                      Dati di utilizzo (pagine visitate, funzioni utilizzate,
+                      orari di accesso)
+                    </li>
+                    <li>
+                      Dati sanitari (risultati dei test cognitivi) - trattati
+                      con massima confidenzialità
+                    </li>
+                    <li>
+                      Dati tecnici (indirizzo IP, tipo di browser, sistema
+                      operativo)
+                    </li>
                   </ul>
                 </div>
               </CardContent>
@@ -62,8 +77,8 @@ export default function PrivacyPolicyPage() {
               <CardContent className="space-y-4 text-muted-foreground">
                 <p>
                   Trattiamo i dati personali sulla base del tuo consenso, per
-                  l'esecuzione di un contratto, per il rispetto di obblighi legali
-                  o per i nostri interessi legittimi.
+                  l'esecuzione di un contratto, per il rispetto di obblighi
+                  legali o per i nostri interessi legittimi.
                 </p>
               </CardContent>
             </Card>
@@ -106,8 +121,8 @@ export default function PrivacyPolicyPage() {
               </CardHeader>
               <CardContent className="space-y-4 text-muted-foreground">
                 <p>
-                  Hai il diritto di accedere, correggere, cancellare o
-                  esportare i tuoi dati personali. Per esercitare questi diritti,
+                  Hai il diritto di accedere, correggere, cancellare o esportare
+                  i tuoi dati personali. Per esercitare questi diritti,
                   contattaci all'indirizzo email di supporto.
                 </p>
               </CardContent>
@@ -137,7 +152,10 @@ export default function PrivacyPolicyPage() {
                 </p>
                 <p>
                   Email:{' '}
-                  <a href="mailto:privacy@mnemosine.com" className="hover:underline">
+                  <a
+                    href="mailto:privacy@mnemosine.com"
+                    className="hover:underline"
+                  >
                     privacy@mnemosine.com
                   </a>
                 </p>

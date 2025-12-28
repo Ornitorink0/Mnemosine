@@ -99,7 +99,9 @@ export default function NavBar() {
             .filter((item) => {
               // Se l'item richiede un ruolo specifico, mostralo solo se l'utente ha quel ruolo
               if (item.requiredRole) {
-                return user?.role === item.requiredRole || user?.role === 'super';
+                return (
+                  user?.role === item.requiredRole || user?.role === 'super'
+                );
               }
               return true;
             })
@@ -242,14 +244,14 @@ export default function NavBar() {
 
 function useUser(): {
   user:
-  | {
-    id: string;
-    username: string;
-    role: 'super' | 'admin' | 'patient';
-    sessionIds: string[];
-    notes: string;
-  }
-  | undefined;
+    | {
+        id: string;
+        username: string;
+        role: 'super' | 'admin' | 'patient';
+        sessionIds: string[];
+        notes: string;
+      }
+    | undefined;
   signOut: () => void;
 } {
   const { data: session } = useSession();
