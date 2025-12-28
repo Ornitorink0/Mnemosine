@@ -1,6 +1,6 @@
-import connectToDB from "@/lib/mongodb";
-import { NextResponse } from "next/server";
-import UserModel from "@/models/User";
+import connectToDB from '@/lib/mongodb';
+import { NextResponse } from 'next/server';
+import UserModel from '@/models/User';
 
 export async function GET() {
   await connectToDB();
@@ -10,8 +10,16 @@ export async function GET() {
     _id: user._id.toString(),
     username: user.username,
     role: user.role,
-    createdAt: user.createdAt.toISOString(),
-    updatedAt: user.updatedAt.toISOString(),
+    sessionIds: user.sessionIds?.map((id) => id.toString()) || [],
+    notes: user.notes || '',
+    createdAt:
+      user.createdAt instanceof Date
+        ? user.createdAt.toISOString()
+        : user.createdAt,
+    updatedAt:
+      user.updatedAt instanceof Date
+        ? user.updatedAt.toISOString()
+        : user.updatedAt,
   }));
 
   return NextResponse.json(formatted);

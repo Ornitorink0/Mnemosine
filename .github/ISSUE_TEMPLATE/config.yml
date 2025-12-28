@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📚 Documentazione
+    url: https://github.com/Ornitorink0/mnemosine#readme
+    about: Consulta la documentazione del progetto
+  - name: 💬 Discussioni
+    url: https://github.com/Ornitorink0/mnemosine/discussions
+    about: Fai domande o discuti di nuove idee

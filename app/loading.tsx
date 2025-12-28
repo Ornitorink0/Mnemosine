@@ -1,4 +1,4 @@
-import { Loader } from "@/components/ui/self/loader";
+import { Loader } from '@/components/ui/self/loader';
 
 export default function Loading() {
   return (

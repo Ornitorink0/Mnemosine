@@ -1,26 +1,26 @@
 {
-    "MnemosineHeader": {
-        "prefix": "mn-pro-header",
-        "body": [
-            "/**",
-            " * @file        $TM_FILENAME",
-            " * @module      ${1:module/path}",
-            " * @author      ${2:GitHubUsername} <${3:email@example.com}>",
-            " * @created     ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
-            " * @updated     ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
-            " * @license     MIT",
-            " * @version     ${4:version} (see package.json)",
-            " * @brief       ${5:Brief description of the file}",
-            " *",
-            " * @description ${6:Detailed description of the file}",
-            " *",
-            " * @remarks",
-            " * ${7:Additional notes or technical details}",
-            " *",
-            " * @changelog",
-            " * ${8:List of changes and updates}",
-            " */"
-        ],
-        "description": "Professional header template for Mnemosine web application files"
-    }
+  "MnemosineHeader": {
+    "prefix": "mn-pro-header",
+    "body": [
+      "/**",
+      " * @file        $TM_FILENAME",
+      " * @module      ${1:module/path}",
+      " * @author      ${2:GitHubUsername} <${3:email@example.com}>",
+      " * @created     ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      " * @updated     ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      " * @license     MIT",
+      " * @version     ${4:version} (see package.json)",
+      " * @brief       ${5:Brief description of the file}",
+      " *",
+      " * @description ${6:Detailed description of the file}",
+      " *",
+      " * @remarks",
+      " * ${7:Additional notes or technical details}",
+      " *",
+      " * @changelog",
+      " * ${8:List of changes and updates}",
+      " */",
+    ],
+    "description": "Professional header template for Mnemosine web application files",
+  },
 }

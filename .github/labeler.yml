@@ -1,0 +1,49 @@
+# Labeler configuration
+# https://github.com/actions/labeler
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'docs/**'
+          - '*.md'
+          - 'README.md'
+
+frontend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'app/**'
+          - 'components/**'
+          - 'styles/**'
+          - '*.css'
+
+api:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'app/api/**'
+          - 'lib/**'
+          - 'models/**'
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'package.json'
+          - 'pnpm-lock.yaml'
+
+configuration:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.config.*'
+          - 'tsconfig.json'
+          - '.env*'
+
+testing:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'tests/**'
+          - '*.test.*'
+          - '*.spec.*'
+
+github:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/**'

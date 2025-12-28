@@ -1,8 +1,9 @@
-import { NextAuthOptions } from 'next-auth';
+import { NextAuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { connectToDB } from '@/lib/mongodb';
-import User from '@/models/User';
-import bcrypt from 'bcrypt';
+import UserModel from '@/models/User';
+import bcrypt from 'bcryptjs';
+import '@/types';
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -15,12 +16,14 @@ export const authOptions: NextAuthOptions = {
         username: { label: 'Username', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<User | null> {
         await connectToDB();
-        const user = await User.findOne({ username: credentials?.username });
+        const user = await UserModel.findOne({
+          username: credentials?.username,
+        });
 
-        if (!user) {
-          console.log('User not found');
+        if (!user || !user.password) {
+          console.log('User not found or no password');
           return null;
         }
 
@@ -39,10 +42,10 @@ export const authOptions: NextAuthOptions = {
           id: user._id.toString(),
           username: user.username,
           role: user.role,
-          sessionIds: user.sessionIds.map((id: import('mongoose').Types.ObjectId) => id.toString()),
+          sessionIds: user.sessionIds.map(
+            (id: import('mongoose').Types.ObjectId) => id.toString()
+          ),
           notes: user.notes,
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
         };
       },
     }),

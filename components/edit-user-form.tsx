@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import type React from "react";
+import type React from 'react';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import type { User } from "./user-table";
-import { updateUser } from "@/lib/data";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import type { User } from './user-table';
+import { updateUser } from '@/lib/data';
 
 interface EditUserFormProps {
   user: User;
@@ -23,12 +23,12 @@ interface EditUserFormProps {
 }
 
 export function EditUserForm({ user, onSuccess }: EditUserFormProps) {
-  console.log("EditUserForm user:", user);
+  console.log('EditUserForm user:', user);
 
   const [formData, setFormData] = useState({
     username: user.username,
     role: user.role,
-    notes: user.notes || "",
+    notes: user.notes || '',
   });
 
   const handleChange = (
@@ -38,7 +38,7 @@ export function EditUserForm({ user, onSuccess }: EditUserFormProps) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleRoleChange = (value: "super" | "admin" | "patient") => {
+  const handleRoleChange = (value: 'super' | 'admin' | 'patient') => {
     setFormData((prev) => ({ ...prev, role: value }));
   };
 
@@ -107,4 +107,3 @@ export function EditUserForm({ user, onSuccess }: EditUserFormProps) {
     </form>
   );
 }
-

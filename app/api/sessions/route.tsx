@@ -1,22 +1,51 @@
-import connectToDB from "@/lib/mongodb";
-import { NextResponse } from "next/server";
-import SessionModel from "@/models/Session";
-import mongoose from "mongoose";
+import connectToDB from '@/lib/mongodb';
+import { NextResponse } from 'next/server';
+import SessionModel from '@/models/Session';
+import mongoose from 'mongoose';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
-export async function GET() {
+export async function GET(_request: Request) {
   await connectToDB();
-  const sessions = await SessionModel.find().lean();
 
-  const formatted = sessions.map((session) => ({
-    _id: session._id.toString(),
-    assignedOn: session.assignedOn?.toISOString(),
-    completedOn: session.completedOn?.toISOString(),
+  // Ottieni la sessione dell'utente
+  const session = await getServerSession(authOptions);
+
+  let query = {};
+
+  // Se è un paziente, mostra solo le sue sessioni
+  if (session?.user?.role === 'patient' && session.user.id) {
+    query = { patientId: new mongoose.Types.ObjectId(session.user.id) };
+  }
+
+  const sessions = await SessionModel.find(query).lean();
+
+  const formatted = sessions.map((sess) => ({
+    _id: sess._id.toString(),
+    patientId: sess.patientId ? sess.patientId.toString() : undefined,
+    status: sess.status,
+    assignedOn:
+      sess.assignedOn instanceof Date
+        ? sess.assignedOn.toISOString()
+        : sess.assignedOn,
+    completedOn:
+      sess.completedOn instanceof Date
+        ? sess.completedOn.toISOString()
+        : sess.completedOn,
+    totalErrors: sess.totalErrors || 0,
+    totalDuration: sess.totalDuration || 0,
     exercises:
-      session.exercises?.map((ex) => ({
-        exerciseId: ex.id.toString(),
+      sess.exercises?.map((ex) => ({
+        exerciseId: ex.exerciseId || '',
+        difficulty: ex.difficulty || 'easy',
         description: ex.description,
-        timeSpent: ex.timeSpent,
-        nErrors: ex.nErrors,
+        timeSpent: ex.timeSpent || 0,
+        nErrors: ex.nErrors || 0,
+        score: ex.score,
+        completedAt:
+          ex.completedAt instanceof Date
+            ? ex.completedAt.toISOString()
+            : ex.completedAt,
       })) || [],
   }));
 
@@ -24,50 +53,68 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  console.log("POST /api/sessions called");
+  console.log('POST /api/sessions called');
   try {
     const body = await request.json();
-    console.log("Request body:", body);
+    console.log('Request body:', body);
     const { patientId, exercises } = body;
 
     if (!patientId || !Array.isArray(exercises)) {
-      console.warn("Missing required fields:", { patientId, exercises });
+      console.warn('Missing required fields:', { patientId, exercises });
       return NextResponse.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
     await connectToDB();
-    console.log("Connected to DB");
+    console.log('Connected to DB');
+
+    // Converti patientId a ObjectId
+    const patientObjectId = new mongoose.Types.ObjectId(patientId);
+
+    // Mappa gli esercizi dal formato frontend al formato del modello
+    const exercisesMapped = exercises.map((ex: unknown) => ({
+      exerciseId:
+        (ex as Record<string, unknown>).code ||
+        (ex as Record<string, unknown>).id?.toString(),
+      difficulty: (ex as Record<string, unknown>).difficulty,
+      description: (ex as Record<string, unknown>).description,
+      timeSpent: 0,
+      nErrors: 0,
+    }));
 
     // 1. Crea una nuova sessione
     const newSession = new SessionModel({
-      exercises,
+      patientId: patientObjectId,
+      exercises: exercisesMapped,
       assignedOn: new Date(),
     });
 
     await newSession.save();
-    console.log("New session saved:", newSession);
+    console.log('New session saved:', newSession);
 
     // 2. Aggiungi l'ID della sessione salvata all'utente
-    const updatedUser = await mongoose.model("User").findByIdAndUpdate(
+    const updatedUser = await mongoose.model('User').findByIdAndUpdate(
       patientId,
       {
         $push: { sessionIds: newSession._id },
       },
       { new: true }
     );
-    console.log("User updated with new session:", updatedUser);
+    console.log('User updated with new session:', updatedUser);
 
     return NextResponse.json({
       sessionId: newSession._id.toString(),
-      assignedOn: newSession.assignedOn?.toISOString(),
+      assignedOn:
+        newSession.assignedOn instanceof Date
+          ? newSession.assignedOn.toISOString()
+          : newSession.assignedOn,
     });
   } catch (error) {
-    console.error("Errore nella POST /api/sessions:", error);
+    console.error('Errore nella POST /api/sessions:', error);
     return NextResponse.json(
-      { error: "Errore interno del server" },
+      { error: 'Errore interno del server' },
       { status: 500 }
     );
   }
