@@ -23,6 +23,9 @@ import {
   Brain,
   BarChart,
   User,
+  Sparkles,
+  Zap,
+  Shield,
 } from 'lucide-react';
 import Link from 'next/link';
 import { difficultyLabels } from '@/lib/exercises';
@@ -185,7 +188,7 @@ export default function Home() {
                   </CardContent>
                   <CardFooter>
                     {sess.status === 'pending' ||
-                    sess.status === 'in-progress' ? (
+                      sess.status === 'in-progress' ? (
                       <Link href={`/session/${sess._id}`} className="w-full">
                         <Button className="w-full">
                           {sess.status === 'pending' ? 'Inizia' : 'Continua'}
@@ -197,8 +200,8 @@ export default function Home() {
                         Completata il{' '}
                         {sess.completedOn
                           ? new Date(sess.completedOn).toLocaleDateString(
-                              'it-IT'
-                            )
+                            'it-IT'
+                          )
                           : 'N/A'}
                       </div>
                     ) : (
@@ -285,34 +288,45 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Brain className="h-8 w-8 text-blue-700" />,
+                icon: Brain,
                 title: 'Esercizi Cognitivi',
                 description:
                   'Test interattivi progettati per valutare memoria, attenzione e funzioni cognitive',
+                color: 'text-blue-500',
               },
               {
-                icon: <BarChart className="h-8 w-8 text-purple-700" />,
+                icon: BarChart,
                 title: 'Analisi Dettagliate',
                 description:
                   'Traccia i progressi e identifica modelli per una diagnosi più accurata',
+                color: 'text-purple-500',
               },
               {
-                icon: <User className="h-8 w-8 text-pink-700" />,
+                icon: User,
                 title: 'Gestione Pazienti',
                 description:
                   'Assegna sessioni, monitora risultati e condividi dati clinici con facilità',
+                color: 'text-pink-500',
               },
-            ].map((feature, idx) => (
-              <Card key={idx} className="border-none shadow-none bg-background">
-                <CardHeader>
-                  <div className="text-4xl mb-4">{feature.icon}</div>
-                  <CardTitle>{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+            ].map((feature, idx) => {
+              const Icon = feature.icon;
+              return (
+                <Card
+                  key={idx}
+                  className="border-0 shadow-md hover:shadow-lg transition-all hover:scale-105 bg-gradient-to-br from-background to-muted/50"
+                >
+                  <CardHeader>
+                    <div className={cn('text-4xl mb-4 p-3 rounded-lg w-fit bg-primary/10')}>
+                      <Icon className={cn('h-8 w-8', feature.color)} />
+                    </div>
+                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -327,73 +341,79 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                Basato su Ricerca
-              </h3>
-              <p className="text-muted-foreground">
-                Esercizi sviluppati in base alle pratiche cliniche per
-                l'identificazione precoce di declino cognitivo.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                Facile da Usare
-              </h3>
-              <p className="text-muted-foreground">
-                Interfaccia intuitiva sia per pazienti che per professionisti
-                sanitari, accessibile e user-friendly.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                Dati Sicuri
-              </h3>
-              <p className="text-muted-foreground">
-                I dati dei pazienti sono protetti con standard di sicurezza e
-                privacy.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                Supporto Clinico
-              </h3>
-              <p className="text-muted-foreground">
-                Dashboard completa per analizzare i risultati e supportare le
-                decisioni cliniche.
-              </p>
-            </div>
+            {[
+              {
+                icon: CheckCircle,
+                title: 'Basato su Ricerca',
+                description:
+                  'Esercizi sviluppati in base alle pratiche cliniche per l\'identificazione precoce di declino cognitivo.',
+                color: 'text-green-500',
+              },
+              {
+                icon: Sparkles,
+                title: 'Facile da Usare',
+                description:
+                  'Interfaccia intuitiva sia per pazienti che per professionisti sanitari, accessibile e user-friendly.',
+                color: 'text-yellow-500',
+              },
+              {
+                icon: Shield,
+                title: 'Dati Sicuri',
+                description:
+                  'I dati dei pazienti sono protetti con standard di sicurezza e privacy.',
+                color: 'text-red-500',
+              },
+              {
+                icon: Zap,
+                title: 'Supporto Clinico',
+                description:
+                  'Dashboard completa per analizzare i risultati e supportare le decisioni cliniche.',
+                color: 'text-orange-500',
+              },
+            ].map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div key={idx}>
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-3">
+                    <Icon className={cn('h-5 w-5', item.color)} />
+                    {item.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto bg-linear-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl p-8 md:p-12 text-center border border-blue-500/20">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-linear-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5" />
+        <div className="max-w-4xl mx-auto relative z-10 bg-linear-to-br from-primary/10 via-background to-muted/30 rounded-3xl p-8 md:p-16 text-center border border-primary/20 shadow-xl">
+          <div className="flex justify-center mb-6">
+            <Sparkles className="h-12 w-12 text-primary animate-pulse" />
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-linear-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
             Pronto a Iniziare?
           </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
             Accedi alla piattaforma o contatta il tuo amministratore per
             iniziare a utilizzare Mnemosine oggi stesso.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/login">
-              <Button size="lg" className="px-8">
+              <Button size="lg" className="px-8 transform hover:scale-105 transition-transform">
                 Accedi Ora
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="px-8">
-              Contattaci
-            </Button>
+            <Link href="/contatti">
+              <Button size="lg" variant="outline" className="px-8 transform hover:scale-105 transition-transform">
+                Contattaci 💬
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
