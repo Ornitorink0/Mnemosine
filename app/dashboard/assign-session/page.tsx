@@ -230,13 +230,13 @@ export default function AssignExercisesPage() {
                     : 'Seleziona un paziente'}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[300px] p-0">
+              <PopoverContent className="w-75 p-0">
                 <Command>
                   <CommandInput placeholder="Cerca paziente..." />
                   <CommandList>
                     <CommandEmpty>Nessun paziente trovato.</CommandEmpty>
                     <CommandGroup>
-                      <ScrollArea className="h-[200px]">
+                      <ScrollArea className="h-50">
                         {patients.map((patient, idx) => (
                           <CommandItem
                             key={`${patient._id ?? patient.username}-${idx}`}
@@ -308,7 +308,7 @@ export default function AssignExercisesPage() {
                         {exercise.description}
                       </TableCell>
                       <TableCell>
-                        <div className="flex flex-col xl:flex-row gap-4 flex-nowrap overflow-x-auto xl:min-w-[220px] mr-4">
+                        <div className="flex flex-col xl:flex-row gap-4 flex-nowrap overflow-x-auto xl:min-w-55 mr-4">
                           {(exercise.difficulty ?? []).map((d) => {
                             const selected = isExerciseDifficultySelected(
                               Number(exercise.id),
@@ -376,7 +376,7 @@ export default function AssignExercisesPage() {
                 Esercizi Selezionati
               </label>
               <Card>
-                <ScrollArea className="h-[200px]">
+                <ScrollArea className="h-50">
                   <div className="p-4 space-y-2">
                     {selectedExercises.map((exercise, idx) => (
                       <div
