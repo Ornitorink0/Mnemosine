@@ -6,7 +6,6 @@ import { ThemeProvider } from '@/components/theme-provider';
 import NavBar from '@/components/nav-bar';
 import { SessionProvider } from 'next-auth/react';
 import { Analytics } from '@vercel/analytics/next';
-import { metadata } from './metadata';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
