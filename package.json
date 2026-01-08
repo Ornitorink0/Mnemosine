@@ -71,7 +71,7 @@
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.562.0",
     "mongodb": "^7.0.0",
-    "mongoose": "^9.0.2",
+    "mongoose": "^9.1.2",
     "motion": "^12.23.26",
     "next": "16.1.1",
     "next-auth": "^4.24.13",
