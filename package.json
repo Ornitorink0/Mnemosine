@@ -100,7 +100,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "husky": "^9.1.7",
     "inquirer": "^13.1.0",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.0",
     "tailwindcss": "^4.1.18",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
